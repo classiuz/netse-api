@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "build": "tsc",
     "start": "node -r esm ./build/index.js",
     "dev": "nodemon -r esm src/index.ts",
     "lint": "eslint . --ext .ts"
@@ -26,6 +27,7 @@
     "eslint-plugin-promise": "6.1.1",
     "esm": "3.2.25",
     "nodemon": "3.0.1",
+    "ts-node": "10.9.1",
     "typescript": "5.2.2"
   }
 }
