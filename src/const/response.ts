@@ -1,0 +1,15 @@
+export const RESPONSE_STATUS = {
+  OK: 200,
+  FORBIDDEN: 401,
+  NOT_FOUND: 404,
+  INVALID_REQUEST: 422,
+  UNKNOWN_ERROR: 500
+}
+
+export const RESPONSE_MESSAGES = {
+  OK: 200,
+  'Se requiere un TOKEN para esta solicitud.': 401,
+  NOT_FOUND: 404,
+  INVALID_REQUEST: 422,
+  UNKNOWN_ERROR: 500
+}
