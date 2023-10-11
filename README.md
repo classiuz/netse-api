@@ -1,6 +1,4 @@
-# NetSE API
-
-### ⚒️ REST API created with Node.js and Express.js using TypeScript
+#### ⚒️ REST API created with Node.js and Express.js using TypeScript
 
 ## 🚀 Getting Started
 
