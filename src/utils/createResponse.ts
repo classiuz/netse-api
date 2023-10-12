@@ -1,16 +1,17 @@
 import { RESPONSE_MESSAGES, RESPONSE_STATUS } from '@/const/response'
 import type { ResponseCode } from '@/types/response'
 
-interface CreateResponseProps {
+interface CreateResponseProps<DataType> {
   code: ResponseCode
-  data: unknown[]
+  message?: string
+  data?: DataType
 }
 
-const createResponse = ({ code, data }: CreateResponseProps) => {
+const createResponse = <DataType>({ code, message, data }: CreateResponseProps<DataType>) => {
   return {
     status: RESPONSE_STATUS[code],
-    message: RESPONSE_MESSAGES[code],
-    data
+    message: message ?? RESPONSE_MESSAGES[code],
+    data: data ?? []
   }
 }
 

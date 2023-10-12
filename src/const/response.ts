@@ -15,9 +15,9 @@ export const RESPONSE_STATUS = {
 }
 
 export const RESPONSE_MESSAGES = {
-  200: 'La solicitud se proceso correctamente.',
-  401: 'Se requiere un TOKEN para esta solicitud.',
-  404: 'No se encontró la solicitud.',
-  422: 'La solicitud es inválida.',
-  500: 'Ocurrió un error inesperado.'
+  200: 'The request was proccess succesfully.',
+  401: 'KEY was not provided or it is invalid.',
+  404: 'The request you are looking for was not found.',
+  422: 'The request are invalid.',
+  500: 'An Unknown error ocurred.'
 }

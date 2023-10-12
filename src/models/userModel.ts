@@ -1,11 +1,13 @@
 const MOCKS_USER = [
   {
+    id: 1,
     userName: 'frodriguez',
     firstName: 'Franco',
     lastName: 'Rodríguez',
     email: 'frodriguez@netse.com.ar',
     role: 'Administrativo'
   }, {
+    id: 2,
     userName: 'pbernachea',
     firstName: 'Patricio',
     lastName: 'Bernachea',

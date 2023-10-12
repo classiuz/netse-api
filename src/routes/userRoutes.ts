@@ -1,11 +1,9 @@
 import { Router } from 'express'
-// import { getUsers } from '../controllers/userController'
-import { USER_PATH } from '@/const/paths'
+import { getUser, getUsers } from '@/controllers/userController'
 
 const router = Router()
 
-router.get(USER_PATH, (req, res) => {
-  res.send('LLEGO')
-})
+router.get('/', getUsers)
+router.get('/:userName', getUser)
 
 export default router
