@@ -1,8 +1,8 @@
-#### ⚒️ REST API created with Node.js and Express.js using TypeScript
+⚒️ REST API created with Node.js and Express.js using TypeScript
 
 ## 🚀 Getting Started
 
-Clone the repository and run npm install to install necessary dependencies
+Clone the repository and to install necessary dependencies
 
 ```bash
 git clone https://github.com/classiuz/netse-api.git
