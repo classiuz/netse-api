@@ -1,5 +1,5 @@
-import { RESPONSE_MESSAGES, RESPONSE_STATUS } from '../const/response'
-import type { ResponseCode } from '../types/response'
+import { RESPONSE_MESSAGES, RESPONSE_STATUS } from '@/const/response'
+import type { ResponseCode } from '@/types/response'
 
 interface CreateResponseProps {
   code: ResponseCode

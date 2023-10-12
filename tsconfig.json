@@ -9,9 +9,11 @@
         "moduleResolution": "Node",
         "baseUrl": "./src",
         "outDir": "./build",
-        "types": [
-            "node"
-        ],
+        "paths": {
+            "@/*": [
+                "*"
+            ],
+        },
         "typeRoots": [
             "./node_modules/@types"
         ]

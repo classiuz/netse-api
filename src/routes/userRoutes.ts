@@ -1,6 +1,6 @@
 import { Router } from 'express'
 // import { getUsers } from '../controllers/userController'
-import { USER_PATH } from '../const/paths'
+import { USER_PATH } from '@/const/paths'
 
 const router = Router()
 
