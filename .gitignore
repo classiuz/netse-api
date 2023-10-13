@@ -3,3 +3,6 @@
 
 # TYPESCRIPT BUILD
 /build
+
+# ENVIRONMENT VARIABLES
+.env
