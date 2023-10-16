@@ -12,10 +12,14 @@ cd netse-api
 npm install
 ```
 
-Create an .env file in the root of the project with the following content
+Create a .env file in the root of the project and replace the values with real values
 
 ```ini
 # .env
+HOSTNAME=http://localhost
+PORT=3090
+ROOT_PATH=/api
+
 DB_HOST=localhost
 DB_USER=myusername
 DB_PASSWORD=mypassword
@@ -39,3 +43,15 @@ npm run start
 ## 📖 Documentation
 
 ⌚ Developing...
+
+## 📊 TEST 
+For testing you need to install [REST CLIENT](https://github.com/Huachao/vscode-restclient) extension on your Visual Studio Code. Then add a key to .env file
+
+```ini
+# .env
+...
+
+TEST_KEY=TOKEN
+```
+
+Now you can test the api. Every file represents a route, for example "/api/users" is "users.http" file

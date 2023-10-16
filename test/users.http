@@ -1,0 +1,11 @@
+# For Testing read README.md test section
+@baseUrl = {{$dotenv HOSTNAME}}:{{$dotenv PORT}}{{$dotenv ROOT_PATH}}
+@testKey = {{$dotenv TEST_KEY}}
+
+# GET ALL USERS
+GET {{baseUrl}}/users?key={{testKey}}
+
+###
+
+# GET USERS BY USERNAME
+GET {{baseUrl}}/users/frodriguez?key={{testKey}}
