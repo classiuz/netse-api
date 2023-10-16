@@ -44,8 +44,8 @@ npm run start
 
 ⌚ Developing...
 
-## 📊 TEST 
-For testing you need to install [REST CLIENT](https://github.com/Huachao/vscode-restclient) extension on your Visual Studio Code. Then add a key to .env file
+## 📊 Test 
+For testing you need to install [REST Client](https://github.com/Huachao/vscode-restclient) extension on your Visual Studio Code. Then add an key to .env file
 
 ```ini
 # .env
@@ -54,4 +54,4 @@ For testing you need to install [REST CLIENT](https://github.com/Huachao/vscode-
 TEST_KEY=TOKEN
 ```
 
-Now you can test the api. Every file represents a route, for example "/api/users" is "users.http" file
+Now you can test the api. Every file represents an route, for example "/api/users" is "users.http" file

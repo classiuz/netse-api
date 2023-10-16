@@ -1,4 +1,4 @@
-# For Testing read README.md test section
+# For Testing read README.md Test section
 @baseUrl = {{$dotenv HOSTNAME}}:{{$dotenv PORT}}{{$dotenv ROOT_PATH}}
 @testKey = {{$dotenv TEST_KEY}}
 
