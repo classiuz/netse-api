@@ -7,14 +7,14 @@ const MOCKS_USER: UserObjectWithId[] = [
     firstName: 'Franco',
     lastName: 'Rodríguez',
     email: 'frodriguez@netse.com.ar',
-    role: 'Administrativo'
+    rol: 'Administrativo'
   }, {
     id: 2,
     username: 'pbernachea',
     firstName: 'Patricio',
     lastName: 'Bernachea',
     email: 'pbernachea@netse.com.ar',
-    role: 'Soporte Técnico'
+    rol: 'Soporte Técnico'
   }
 ]
 

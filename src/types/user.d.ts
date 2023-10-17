@@ -3,7 +3,7 @@ export interface UserObject {
   email: string
   firstName: string
   lastName: string
-  role: string
+  rol: string
 }
 
 export interface UserObjectWithId extends UserObject {

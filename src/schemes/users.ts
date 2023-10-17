@@ -6,7 +6,7 @@ const usersScheme = z.object({
   firstName: z.string(),
   lastName: z.string(),
   email: z.string().email(),
-  role: z.string()
+  rol: z.string()
 })
 
 export const validateUser = (value: typeof usersScheme) => {
