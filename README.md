@@ -2,7 +2,7 @@
 
 ## 🚀 Getting Started
 
-Clone the repository and install necessary dependencies
+Clone the repository and install necessary dependencies.
 
 ```bash
 git clone https://github.com/classiuz/netse-api.git
@@ -12,7 +12,7 @@ cd netse-api
 npm install
 ```
 
-Create a .env file in the root of the project and replace the values with real values
+Create a `.env` file in the root of the project and replace the values with real values.
 
 ```ini
 # .env
@@ -26,13 +26,13 @@ DB_PASSWORD=mypassword
 DB_NAME=mydatabase
 ```
 
-For start the API in Development Mode run
+For start the API in Development Mode run.
 
 ```bash
 npm run dev
 ```
 
-For start the API in Production Mode run
+For start the API in Production Mode run.
 
 ```bash
 npm run build 
@@ -45,13 +45,13 @@ npm run start
 ⌚ Developing...
 
 ## 📊 Test 
-For testing you need to install [REST Client](https://github.com/Huachao/vscode-restclient) extension on your Visual Studio Code. Then add an key to .env file
+For testing you need to install [REST Client](https://github.com/Huachao/vscode-restclient) extension on your Visual Studio Code. Then add an key to `.env` file.
 
 ```ini
 # .env
 ...
 
-TEST_KEY=TOKEN
+KEY=TOKEN
 ```
 
-Now you can test the api. Every file represents an route, for example "/api/users" is "users.http" file
+Now you can test the api. Every file inside `test` folder represents an route, for example `/api/users` it is `users.http` file.

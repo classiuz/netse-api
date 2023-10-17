@@ -2,7 +2,7 @@ import express, { type Application } from 'express'
 
 import authMiddleware from '@/middlewares/authMiddleware'
 import notFoundMiddleware from '@/middlewares/notFoundMiddleware'
-import userRoutes from '@/routes/userRoutes'
+import userRoutes from '@/routes/usersRoutes'
 
 import { PORT, ROOT_PATH } from '@/config/server'
 import { START_MESSAGE } from '@/const/messages'

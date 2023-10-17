@@ -1,11 +1,55 @@
 # For Testing read README.md Test section
-@baseUrl = {{$dotenv HOSTNAME}}:{{$dotenv PORT}}{{$dotenv ROOT_PATH}}
-@testKey = {{$dotenv TEST_KEY}}
+@baseUrl = {{$dotenv URL}}:{{$dotenv PORT}}{{$dotenv ROOT_PATH}}
+@key = {{$dotenv KEY}}
 
 # GET ALL USERS
-GET {{baseUrl}}/users?key={{testKey}}
+GET {{baseUrl}}/users
+authorization: {{key}}
+
+###
+
+# CREATE USER - Failed
+POST {{baseUrl}}/users
+authorization: {{key}}
+content-type: application/json
+
+{
+    "key": "{{key}}",
+    "username": "frodriguez"
+}
+
+###
+
+# CREATE USER - Successfully
+POST {{baseUrl}}/users
+authorization: {{key}}
+content-type: application/json
+
+{
+    "key": "{{key}}",
+    "username": "rmoreno",
+    "firstName": "Richard",
+    "lastName": "Moreno",
+    "email": "rmoreno@gmail.com",
+    "role": "Coordinador"
+}
 
 ###
 
 # GET USERS BY USERNAME
-GET {{baseUrl}}/users/frodriguez?key={{testKey}}
+GET {{baseUrl}}/users/frodriguez?key={{key}}
+authorization: {{key}}
+
+###
+
+# UPDTATE A USER
+PATCH {{baseUrl}}/users/frodriguez
+authorization: {{key}}
+content-type: application/json
+
+{
+    "key": "{{key}}",
+    "sql": "SELECT * FROM user",
+    "username": "flloveras",
+    "email": "flloveras@netse.com.ar"
+}
