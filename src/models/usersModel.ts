@@ -1,51 +1,46 @@
-import type { UpdateUserProps, UserObject, UserObjectWithId, UserOnlyUsername } from '@/types/user'
+import pool from '@/config/database'
+import type { UpdateUserProps, UserObject, UserOnlyUsername, UserObjectWithId } from '@/types/user'
 
-const MOCKS_USER: UserObjectWithId[] = [
-  {
-    id: 1,
-    username: 'frodriguez',
-    firstName: 'Franco',
-    lastName: 'Rodríguez',
-    email: 'frodriguez@netse.com.ar',
-    rol: 'Administrativo'
-  }, {
-    id: 2,
-    username: 'pbernachea',
-    firstName: 'Patricio',
-    lastName: 'Bernachea',
-    email: 'pbernachea@netse.com.ar',
-    rol: 'Soporte Técnico'
+const getAllUsers = async (): Promise<UserObjectWithId[]> => {
+  const [rows] = await pool.query('SELECT id, username, email, firstName, lastName FROM users')
+  return rows as UserObjectWithId[]
+}
+
+const getUserByUsername = async ({ username }: UserOnlyUsername) => {
+  const [rows] = await pool.query('SELECT id, username, email, firstName, lastName FROM users WHERE username = (?)', [username])
+  return rows as UserObjectWithId[]
+}
+
+const createUser = async (username: UserObject) => {
+  try {
+    await pool.query('INSERT INTO users (username, email, firstName, lastName) VALUES (?, ?, ?, ?)',
+      [username.username, username.email, username.firstName, username.lastName]
+    )
+  } catch (error) {
+    throw new Error(JSON.stringify(error))
   }
-]
-
-const getAllUsers = () => {
-  return MOCKS_USER
 }
 
-const getUserByUsername = ({ username }: UserOnlyUsername) => {
-  return MOCKS_USER.find((user) => user.username === username)
-}
-
-const createUser = (username: UserObject) => {
-  const id = MOCKS_USER.length + 1
-  MOCKS_USER.push({ id, ...username })
-  return username
-}
-
-const updateUser = ({ username, newData }: UpdateUserProps) => {
-  const userIndex = MOCKS_USER.findIndex(user => user.username === username)
-
-  MOCKS_USER[userIndex] = {
-    ...MOCKS_USER[userIndex],
-    ...newData
+const updateUser = async ({ username, newData }: UpdateUserProps) => {
+  try {
+    await pool.query('UPDATE users SET ? WHERE username = ?', [newData, username])
+  } catch (error) {
+    throw new Error(JSON.stringify(error))
   }
+}
 
-  return MOCKS_USER[userIndex]
+const deleteUser = async ({ username }: UserOnlyUsername) => {
+  try {
+    await pool.query('DELETE FROM users WHERE (username) = (?)', [username])
+  } catch (error) {
+    throw new Error(JSON.stringify(error))
+  }
 }
 
 export default {
   getAllUsers,
   getUserByUsername,
   createUser,
-  updateUser
+  updateUser,
+  deleteUser
 }

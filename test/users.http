@@ -14,7 +14,6 @@ authorization: {{key}}
 content-type: application/json
 
 {
-    "key": "{{key}}",
     "username": "frodriguez"
 }
 
@@ -26,7 +25,6 @@ authorization: {{key}}
 content-type: application/json
 
 {
-    "key": "{{key}}",
     "username": "rmoreno",
     "firstName": "Richard",
     "lastName": "Moreno",
@@ -37,7 +35,13 @@ content-type: application/json
 ###
 
 # GET USERS BY USERNAME
-GET {{baseUrl}}/users/frodriguez?key={{key}}
+GET {{baseUrl}}/users/frodriguez
+authorization: {{key}}
+
+###
+
+# DELETE USER
+DELETE {{baseUrl}}/users/flloveras
 authorization: {{key}}
 
 ###
@@ -48,7 +52,6 @@ authorization: {{key}}
 content-type: application/json
 
 {
-    "key": "{{key}}",
     "sql": "SELECT * FROM user",
     "username": "flloveras",
     "email": "flloveras@netse.com.ar"
