@@ -5,6 +5,7 @@ export const RESPONSE_CODES = {
   401: 401,
   404: 404,
   409: 409,
+  422: 422,
   500: 500
 }
 
@@ -15,6 +16,7 @@ export const RESPONSE_STATUS = {
   401: 'FORBIDDEN',
   404: 'NOT_FOUND',
   409: 'CONFLICT',
+  422: 'UNPROCESSABLE CONTENT',
   500: 'UNKNOWN_ERROR'
 }
 
@@ -25,5 +27,6 @@ export const RESPONSE_MESSAGES = {
   401: 'KEY was not provided or it is invalid.',
   404: 'The request you are looking for was not found.',
   409: 'They was a conflict with the resource sended.',
+  422: 'The resources are OK but cannot be processed.',
   500: 'An Unknown error ocurred.'
 }

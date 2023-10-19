@@ -1,0 +1,15 @@
+# For Testing read README.md Test section
+@baseUrl = {{$dotenv URL}}:{{$dotenv PORT}}{{$dotenv ROOT_PATH}}
+@key = {{$dotenv KEY}}
+
+# AUTH USER
+GET {{baseUrl}}/auth
+authorization: {{key}}
+Content-Type: application/json
+
+{
+    "username": "frodriguez",
+    "password": "test123"
+}
+
+###

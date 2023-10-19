@@ -1,12 +1,11 @@
 import z from 'zod'
 
-// TODO - Add users type to scheme
-const usersScheme = z.object({
+export const usersScheme = z.object({
   username: z.string(),
   firstName: z.string(),
   lastName: z.string(),
   email: z.string().email(),
-  rol: z.string()
+  password: z.string()
 })
 
 export const validateUser = (value: typeof usersScheme) => {

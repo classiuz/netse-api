@@ -16,7 +16,7 @@ Create a `.env` file in the root of the project and replace the values with real
 
 ```ini
 # .env
-HOSTNAME=http://localhost
+URL=http://localhost
 PORT=3090
 ROOT_PATH=/api
 

@@ -25,11 +25,11 @@ authorization: {{key}}
 content-type: application/json
 
 {
-    "username": "rmoreno",
-    "firstName": "Richard",
-    "lastName": "Moreno",
-    "email": "rmoreno@gmail.com",
-    "rol": "Coordinador"
+    "username": "frodriguez",
+    "firstName": "Franco",
+    "lastName": "Rodríguez",
+    "email": "frodriguez@netse.com.ar",
+    "password": "test123"
 }
 
 ###

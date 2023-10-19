@@ -1,9 +1,7 @@
-export interface UserObject {
-  username: string
-  email: string
-  firstName: string
-  lastName: string
-}
+import type z from 'zod'
+import { type usersScheme } from '@/schemes/users'
+
+export type UserObject = z.infer<typeof usersScheme>
 
 export interface UserObjectWithId extends UserObject {
   id: number
