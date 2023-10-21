@@ -20,10 +20,14 @@ URL=http://localhost
 PORT=3090
 ROOT_PATH=/api
 
-DB_HOST=localhost
-DB_USER=myusername
-DB_PASSWORD=mypassword
-DB_NAME=mydatabase
+DB_HOST=databaseHost
+DB_USER=databaseUsername
+DB_PASSWORD=databasePassword
+DB_NAME=databaseName
+
+API_KEY=KEY
+
+SECRET_KEY=KEYWORD
 ```
 
 For start the API in Development Mode run.
@@ -40,18 +44,24 @@ npm run build
 npm run start
 ```
 
+For Production purposes, is highly recommended install [pm2](https://github.com/Unitech/pm2) package for process management. And run production command to clean unnecessary data.
+
+```bash
+npm run production
+```
+
 ## 📖 Documentation
 
 ⌚ Developing...
 
 ## 📊 Test 
-For testing you need to install [REST Client](https://github.com/Huachao/vscode-restclient) extension on your Visual Studio Code. Then add an key to `.env` file.
+For testing you need to install [REST Client](https://github.com/Huachao/vscode-restclient) extension on your Visual Studio Code. Then check the key on `.env` file is valid key.
 
 ```ini
 # .env
 ...
 
-KEY=TOKEN
+KEY=VALID KEY
 ```
 
 Now you can test the api. Every file inside `test` folder represents an route, for example `/api/users` it is `users.http` file.

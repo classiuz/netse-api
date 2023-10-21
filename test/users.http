@@ -1,6 +1,6 @@
 # For Testing read README.md Test section
 @baseUrl = {{$dotenv URL}}:{{$dotenv PORT}}{{$dotenv ROOT_PATH}}
-@key = {{$dotenv KEY}}
+@key = {{$dotenv API_KEY}}
 
 # GET ALL USERS
 GET {{baseUrl}}/users
