@@ -1,0 +1,38 @@
+# For Testing read README.md Test section
+@baseUrl = {{$dotenv URL}}:{{$dotenv PORT}}{{$dotenv ROOT_PATH}}
+@key = {{$dotenv KEY}}
+
+# GET ALL TOKENS
+GET {{baseUrl}}/tokens
+authorization: {{key}}
+
+###
+
+# CREATE TOKEN - Failed
+POST {{baseUrl}}/tokens
+authorization: {{key}}
+content-type: application/json
+
+{
+    "name": 1
+}
+
+###
+
+# CREATE TOKEN - Successfully
+POST {{baseUrl}}/tokens
+authorization: {{key}}
+content-type: application/json
+
+{
+    "name": "TEST",
+    "username": "frodriguez"
+}
+
+###
+
+# DELETE
+DELETE {{baseUrl}}/tokens/TEST
+authorization: {{key}}
+
+###s

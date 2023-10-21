@@ -98,7 +98,7 @@ const deleteUser = async (req: Request, res: Response) => {
     }
 
     await usersModels.deleteUser({ username: user[0].username })
-    const response = createResponse({ code: 200 })
+    const response = createResponse({ code: 200, message: USERS_MESSAGES.DELETE(user[0].username) })
     res.status(200).json(response).end()
   } catch (error) {
     const response = createResponse({ code: 500, data: [{ error }] })

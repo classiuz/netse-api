@@ -4,8 +4,7 @@ import type { Request, Response } from 'express'
 import createResponse from '@/utils/createResponse'
 import usersModel from '@/models/usersModel'
 import { USERS_MESSAGES } from '@/const/messages'
-
-const SECRET_KEY = 'NETSE'
+import { SECRET_KEY } from '@/config/environment'
 
 const authUser = async (req: Request, res: Response) => {
   const { username, password } = req.body
@@ -30,6 +29,7 @@ const authUser = async (req: Request, res: Response) => {
     }
 
     const [{ password: mockPassword, ...rest }] = mockUser
+    if (!SECRET_KEY) throw new Error('SECRET_KEY was undefined')
     const token = jwt.sign({ username }, SECRET_KEY, { expiresIn: '1h' })
     const response = createResponse({ code: 200, data: { user: { ...rest }, token } })
     res.status(200).json(response).end()

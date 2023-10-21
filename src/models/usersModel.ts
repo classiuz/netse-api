@@ -2,7 +2,7 @@ import bcrypt from 'bcrypt'
 import pool from '@/config/database'
 import type { UpdateUserProps, UserObject, UserOnlyUsername, UserObjectWithId } from '@/types/user'
 
-const getAllUsers = async (): Promise<UserObjectWithId[]> => {
+const getAllUsers = async () => {
   const [rows] = await pool.query('SELECT id, username, email, firstName, lastName, password FROM users')
   return rows as UserObjectWithId[]
 }
