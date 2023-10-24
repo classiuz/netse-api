@@ -3,12 +3,13 @@ import { type tokenScheme } from '@/schemes/tokens'
 
 export type TokenObject = z.infer<typeof tokenScheme>
 
-export interface TokenObjectWithId extends TokenObject {
+export interface TokenObjectWithIdAndCreateAt extends TokenObject {
   id: number
+  createAd: string
 }
 
-export interface TokenObjectWithIdAndValue extends TokenObjectWithId {
-  value: string
+export interface TokenObjectWithIdAndCreateAtAndValue extends TokenObjectWithIdAndCreateAt {
+  tokenValue: string
 }
 
-export type TokenOnlyName = Pick<TokenObject, 'name'>
+export type TokenOnlyName = Pick<TokenObject, 'tokenName'>

@@ -1,23 +1,41 @@
 import bcrypt from 'bcrypt'
 import pool from '@/config/database'
-import type { UpdateUserProps, UserObject, UserOnlyUsername, UserObjectWithId } from '@/types/user'
+import type { UpdateUserProps, UserObject, UserOnlyUsername, UserObjectWithIdAndCreateAt } from '@/types/user'
+import getDate from '@/utils/getDate'
+
+const createTable = async () => {
+  await pool.query(`
+    CREATE TABLE IF NOT EXISTS users (
+      id INT PRIMARY KEY AUTO_INCREMENT,
+      username VARCHAR(100) NOT NULL UNIQUE,
+      email VARCHAR(255) NOT NULL,
+      firstName VARCHAR(255) NOT NULL,
+      lastName VARCHAR(255) NOT NULL,
+      password VARCHAR(255) NOT NULL,
+      createdAt VARCHAR(25) NOT NULL
+    )
+  `)
+}
+
+void createTable()
 
 const getAllUsers = async () => {
-  const [rows] = await pool.query('SELECT id, username, email, firstName, lastName, password FROM users')
-  return rows as UserObjectWithId[]
+  const [rows] = await pool.query('SELECT id, username, email, firstName, lastName, password, createdAt FROM users')
+  return rows as UserObjectWithIdAndCreateAt[]
 }
 
 const getUserByUsername = async ({ username }: UserOnlyUsername) => {
-  const [rows] = await pool.query('SELECT id, username, email, firstName, lastName, password FROM users WHERE username = (?)', [username])
-  return rows as UserObjectWithId[]
+  const [rows] = await pool.query('SELECT id, username, email, firstName, lastName, password, createdAt FROM users WHERE username = (?)', [username])
+  return rows as UserObjectWithIdAndCreateAt[]
 }
 
 const createUser = async (username: UserObject) => {
   const hashedPassword = await bcrypt.hash(username.password, 10)
+  const date = getDate()
 
   try {
-    await pool.query('INSERT INTO users (username, email, firstName, lastName, password) VALUES (?, ?, ?, ?, ?)',
-      [username.username, username.email, username.firstName, username.lastName, hashedPassword]
+    await pool.query('INSERT INTO users (username, email, firstName, lastName, password, createdAt) VALUES (?, ?, ?, ?, ?, ?)',
+      [username.username, username.email, username.firstName, username.lastName, hashedPassword, date]
     )
   } catch (error) {
     throw error

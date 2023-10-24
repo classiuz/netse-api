@@ -7,7 +7,6 @@ export const blacklistScheme = z.object({
   email: z.string().email(),
   reason: z.string(),
   addedBy: z.string(),
-  date: z.string(),
   address,
   coordinates
 })

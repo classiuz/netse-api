@@ -7,3 +7,39 @@ GET {{baseUrl}}/blacklist
 authorization: {{key}}
 
 ###
+
+# CREATE BLACKLIST - Failed
+POST {{baseUrl}}/blacklist
+authorization: {{key}}
+content-type: application/json
+
+{
+    "clientName": "frodriguez",
+    "addedBy": "mario",
+}
+
+###
+
+# CREATE BLACKLIST - Successfully
+POST {{baseUrl}}/blacklist
+authorization: {{key}}
+content-type: application/json
+
+{
+  "document": 44990850,
+  "clientName": "Franco Rodríguez",
+  "email": "frodriguez@netse.com.ar",
+  "reason": "Se portó mal.",
+  "addedBy": "frodriguez",
+  "address": {
+    "province": "Buenos Aires",
+    "neighborhood": "Parque Patricio",
+    "direction": "Lavárden 43"
+  },
+  "coordinates": {
+    "lat": -34.636966,
+    "lng": -58.402071
+  }
+}
+
+###

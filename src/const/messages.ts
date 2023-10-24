@@ -22,16 +22,18 @@ export const USERS_MESSAGES = {
 export const BLACKLIST_MESSAGE = {
   NOT_FOUND: (clientName: string) => `The blacklist with the client ${clientName} was not found.`,
   CREATED: (clientName: string) => `BlackList client ${clientName} was created successfully.`,
+  USER_DONT_EXIST: (username: string) => `The user ${username} not exist.`,
   ALREADY_CREATED: (clientName: string) => `Blacklist with the client ${clientName} was already created.`,
   UPDATE: (clientName: string) => `The blacklist with the client ${clientName} was update correctly.`,
   DELETE: (clientName: string) => `The blacklist with the client ${clientName} was delete successfully.`
 }
 
 export const TOKEN_MESSAGE = {
-  CREATED: (name: string) => `Token ${name} was created successfully.`,
-  NOT_FOUND: (name: string) => `The Token ${name} was not found.`,
-  ALREADY_CREATED: (name: string) => `The Token ${name} was already created.`,
-  DELETE: (name: string) => `The Token ${name} was delete successfully.`
+  CREATED: (tokenName: string) => `Token ${tokenName} was created successfully.`,
+  NOT_FOUND: (tokenName: string) => `The Token ${tokenName} was not found.`,
+  USER_DONT_EXIST: (username: string) => `The user ${username} not exist.`,
+  ALREADY_CREATED: (tokenName: string) => `The Token ${tokenName} was already created.`,
+  DELETE: (tokenName: string) => `The Token ${tokenName} was delete successfully.`
 }
 
 export const AUTH_MESSAGE = {

@@ -14,7 +14,8 @@ authorization: {{key}}
 content-type: application/json
 
 {
-    "name": 1
+    "tokenName": "TEST12",
+    "username": "pepito"
 }
 
 ###
@@ -25,7 +26,7 @@ authorization: {{key}}
 content-type: application/json
 
 {
-    "name": "TEST",
+    "tokenName": "TEST2",
     "username": "frodriguez"
 }
 

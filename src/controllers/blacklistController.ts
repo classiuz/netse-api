@@ -1,5 +1,6 @@
 import { BLACKLIST_MESSAGE } from '@/const/messages'
 import blacklistModel from '@/models/blacklistModel'
+import usersModel from '@/models/usersModel'
 import { validateBlacklist, validatePartialBlacklist } from '@/schemes/blacklist'
 import createResponse from '@/utils/createResponse'
 import type { Request, Response } from 'express'
@@ -45,6 +46,13 @@ const createBlacklist = async (req: Request, res: Response) => {
 
   if (alreadyCreated.length >= 1) {
     const response = createResponse({ code: 409, message: BLACKLIST_MESSAGE.ALREADY_CREATED(result.data.clientName) })
+    return res.status(409).json(response).end()
+  }
+
+  const userExist = await usersModel.getUserByUsername({ username: result.data.addedBy })
+
+  if (userExist.length === 0) {
+    const response = createResponse({ code: 409, message: BLACKLIST_MESSAGE.USER_DONT_EXIST(result.data.addedBy) })
     return res.status(409).json(response).end()
   }
 

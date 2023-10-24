@@ -1,7 +1,7 @@
 import z from 'zod'
 
 export const tokenScheme = z.object({
-  name: z.string(),
+  tokenName: z.string(),
   username: z.string()
 })
 

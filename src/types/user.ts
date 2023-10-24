@@ -5,8 +5,9 @@ export type UserObject = z.infer<typeof usersScheme>
 
 export type UserOnlyUsername = Pick<UserObject, 'username'>
 
-export interface UserObjectWithId extends UserObject {
+export interface UserObjectWithIdAndCreateAt extends UserObject {
   id: number
+  createAT: string
 }
 
 export interface UpdateUserProps {

@@ -1,5 +1,6 @@
 import { TOKEN_MESSAGE } from '@/const/messages'
 import tokenModel from '@/models/tokenModel'
+import usersModel from '@/models/usersModel'
 import { validateToken } from '@/schemes/tokens'
 import createResponse from '@/utils/createResponse'
 import type { Request, Response } from 'express'
@@ -23,16 +24,23 @@ const createToken = async (req: Request, res: Response) => {
     return res.status(400).json(response).end()
   }
 
-  const alreadyCreated = await tokenModel.getTokenByName({ name: result.data.name })
+  const alreadyCreated = await tokenModel.getTokenByName({ tokenName: result.data.tokenName })
 
   if (alreadyCreated.length >= 1) {
-    const response = createResponse({ code: 409, message: TOKEN_MESSAGE.ALREADY_CREATED(result.data.name) })
+    const response = createResponse({ code: 409, message: TOKEN_MESSAGE.ALREADY_CREATED(result.data.tokenName) })
+    return res.status(409).json(response).end()
+  }
+
+  const userExist = await usersModel.getUserByUsername({ username: result.data.username })
+
+  if (userExist.length === 0) {
+    const response = createResponse({ code: 409, message: TOKEN_MESSAGE.USER_DONT_EXIST(result.data.username) })
     return res.status(409).json(response).end()
   }
 
   try {
     const token = await tokenModel.createToken(result.data)
-    const response = createResponse({ code: 201, message: TOKEN_MESSAGE.CREATED(result.data.name), data: [token] })
+    const response = createResponse({ code: 201, message: TOKEN_MESSAGE.CREATED(result.data.tokenName), data: [token] })
     res.status(201).json(response).end()
   } catch (error) {
     const response = createResponse({ code: 500, data: [{ error }] })
@@ -41,18 +49,18 @@ const createToken = async (req: Request, res: Response) => {
 }
 
 const deleteToken = async (req: Request, res: Response) => {
-  const { name } = req.params
+  const { tokenName } = req.params
 
   try {
-    const token = await tokenModel.getTokenByName({ name })
+    const token = await tokenModel.getTokenByName({ tokenName })
 
     if (token.length === 0) {
-      const response = createResponse({ code: 404, message: TOKEN_MESSAGE.NOT_FOUND(name) })
+      const response = createResponse({ code: 404, message: TOKEN_MESSAGE.NOT_FOUND(tokenName) })
       return res.status(404).json(response).end()
     }
 
-    await tokenModel.deleteToken({ name: token[0].name })
-    const response = createResponse({ code: 200, message: TOKEN_MESSAGE.DELETE(token[0].name) })
+    await tokenModel.deleteToken({ tokenName: token[0].tokenName })
+    const response = createResponse({ code: 200, message: TOKEN_MESSAGE.DELETE(token[0].tokenName) })
     res.status(200).json(response).end()
   } catch (error) {
     const response = createResponse({ code: 500, data: [{ error }] })
