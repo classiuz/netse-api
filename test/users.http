@@ -3,8 +3,7 @@
 @key = {{$dotenv API_KEY}}
 
 # GET ALL USERS
-GET {{baseUrl}}/users
-authorization: {{key}}
+GET {{baseUrl}}/users?key={{key}}
 
 ###
 

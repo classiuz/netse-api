@@ -5,7 +5,9 @@ import createResponse from '@/utils/createResponse'
 import type { NextFunction, Request, Response } from 'express'
 
 const authMiddleware = async (req: Request, res: Response, next: NextFunction) => {
-  const key = req.headers.authorization
+  const headersKey = req.headers.authorization
+  const queryKey = req.query.key?.toString()
+  const key = headersKey ?? queryKey
 
   if (!key) {
     const response = createResponse({ code: 401, message: AUTH_MESSAGE.MISSING_KEY })
