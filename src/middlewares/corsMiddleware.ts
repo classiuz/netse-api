@@ -1,5 +1,6 @@
 import cors from 'cors'
 import { ALLOWED_ORIGINS } from '@/config/environment'
+import { GENERAL_MESSAGES } from '@/const/messages'
 
 const allowedOrigins = ALLOWED_ORIGINS?.split(', ')
 
@@ -8,7 +9,7 @@ const corsMiddleware = () => cors({
     if (!origin || allowedOrigins?.includes(origin)) {
       callback(null, true)
     } else {
-      callback(new Error('Not allowed by CORS'))
+      callback(new Error(GENERAL_MESSAGES.CORS_ERROR))
     }
   }
 })

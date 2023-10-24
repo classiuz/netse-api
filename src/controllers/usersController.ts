@@ -19,7 +19,7 @@ const getAllUsers = async (req: Request, res: Response) => {
 const getUserByUsername = async (req: Request, res: Response) => {
   const { username } = req.params
   try {
-    const mockUser = await usersModels.checkUserExist({ username })
+    const mockUser = await usersModels.getUserByUsername({ username })
 
     if (mockUser.length === 0) {
       const response = createResponse({ code: 404, message: USERS_MESSAGES.NOT_FOUND(username) })
@@ -70,7 +70,7 @@ const updateUser = async (req: Request, res: Response) => {
   }
 
   try {
-    const user = await usersModels.checkUserExist({ username })
+    const user = await usersModels.getUserByUsername({ username })
 
     if (user.length === 0) {
       const response = createResponse({ code: 404, message: USERS_MESSAGES.NOT_FOUND(username) })
@@ -90,7 +90,7 @@ const deleteUser = async (req: Request, res: Response) => {
   const { username } = req.params
 
   try {
-    const user = await usersModels.checkUserExist({ username })
+    const user = await usersModels.getUserByUsername({ username })
 
     if (user.length === 0) {
       const response = createResponse({ code: 404, message: USERS_MESSAGES.NOT_FOUND(username) })

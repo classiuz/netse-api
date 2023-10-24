@@ -40,19 +40,10 @@ const deleteUser = async ({ username }: UserOnlyUsername) => {
   }
 }
 
-const checkUserExist = async ({ username }: UserOnlyUsername) => {
-  try {
-    return await getUserByUsername({ username })
-  } catch (error) {
-    throw error
-  }
-}
-
 export default {
   getAllUsers,
   getUserByUsername,
   createUser,
   updateUser,
-  deleteUser,
-  checkUserExist
+  deleteUser
 }

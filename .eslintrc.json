@@ -10,6 +10,7 @@
     ],
     "rules": {
         "no-useless-catch": "off", // TODO ACTIVE THIS RULE AND IMPROVE ERROR HANDLING
+        "@typescript-eslint/space-before-function-paren": "off",
         "@typescript-eslint/explicit-function-return-type": "off",
         "@typescript-eslint/no-misused-promises": "off",
         "@typescript-eslint/strict-boolean-expressions": "off"

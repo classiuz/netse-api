@@ -15,7 +15,7 @@ const authUser = async (req: Request, res: Response) => {
   }
 
   try {
-    const mockUser = await usersModel.checkUserExist({ username })
+    const mockUser = await usersModel.getUserByUsername({ username })
 
     if (mockUser.length === 0) {
       const response = createResponse({ code: 404, message: USERS_MESSAGES.NOT_FOUND(username) })
