@@ -52,7 +52,21 @@ npm run production
 
 ## 📖 Documentation
 
-⌚ Developing...
+### 🧮 Endpoints Table
+
+| Route         | Method        | Endpoint          | Authentication     | Description                  |
+| ------------- | ------------- | -------------     | -------------      | -------------                |
+| /users        | `GET`         | /users            | API Token require  | Get all users                |
+| /users        | `GET`         | /users/:username  | API Token require  | Get user by username         |
+| /users        | `POST`        | /users            | API Token require  | Create a new user            |
+| /users        | `DELETE`      | /users/:username  | API Token require  | Delete a user by username    |
+| /users        | `PATCH`       | /users/:username  | API Token require  | Update a user by username    |
+| /tokens       | `GET`         | /tokens           | API Token require  | Get all tokens               |
+| /tokens       | `POST`        | /tokens           | API Token require  | Create a new token           |
+| /tokens       | `DELETE`      | /tokens           | API Token require  | Delete a token               |
+| /auth         | `GET`         | /auth             | API Token require  | Validate user authentication |
+| /blacklist    | `GET`         | /blacklist        | API Token require  | Get all blacklist            |
+| /blacklist    | `POST`        | /blacklist        | API Token require  | Create a new blacklist       |
 
 ## 📊 Test 
 For testing you need to install [REST Client](https://github.com/Huachao/vscode-restclient) extension on your Visual Studio Code. Then check the key on `.env` file is valid key.
