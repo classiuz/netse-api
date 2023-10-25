@@ -13,7 +13,7 @@ authorization: {{key}}
 content-type: application/json
 
 {
-    "username": "frodriguez"
+    "username": 12312
 }
 
 ###

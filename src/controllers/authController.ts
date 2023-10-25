@@ -3,7 +3,7 @@ import jwt from 'jsonwebtoken'
 import type { Request, Response } from 'express'
 import createResponse from '@/utils/createResponse'
 import usersModel from '@/models/usersModel'
-import { USERS_MESSAGES } from '@/const/messages'
+import { GENERAL_MESSAGES, USERS_MESSAGES } from '@/const/messages'
 import { SECRET_KEY } from '@/config/environment'
 
 const authUser = async (req: Request, res: Response) => {
@@ -15,7 +15,7 @@ const authUser = async (req: Request, res: Response) => {
   }
 
   try {
-    const mockUser = await usersModel.getUserByUsername({ username })
+    const mockUser = await usersModel.getUserByUsername({ username, selectFields: ['password'] })
 
     if (mockUser.length === 0) {
       const response = createResponse({ code: 404, message: USERS_MESSAGES.NOT_FOUND(username) })
@@ -29,12 +29,12 @@ const authUser = async (req: Request, res: Response) => {
     }
 
     const [{ password: mockPassword, ...rest }] = mockUser
-    if (!SECRET_KEY) throw new Error('SECRET_KEY was undefined')
+    if (!SECRET_KEY) throw new Error(GENERAL_MESSAGES.ENVIRONMENT_NOT_FOUND('SECRET_KEY'))
     const token = jwt.sign({ username }, SECRET_KEY, { expiresIn: '1h' })
     const response = createResponse({ code: 200, data: { user: { ...rest }, token } })
     res.status(200).json(response).end()
   } catch (error) {
-    const response = createResponse({ code: 500, data: [{ error }] })
+    const response = createResponse({ code: 500, error })
     return res.status(500).json(response).end()
   }
 }

@@ -3,15 +3,15 @@ import createResponse from '@/utils/createResponse'
 import { USERS_MESSAGES } from '@/const/messages'
 import { validatePartialUser, validateUser } from '@/schemes/users'
 import type { Request, Response } from 'express'
+import zodParseError from '@/utils/zodParseError'
 
 const getAllUsers = async (req: Request, res: Response) => {
   try {
-    const mockUsers = await usersModels.getAllUsers()
-    const [{ password: mockPassword, ...rest }] = mockUsers
-    const response = createResponse({ code: 200, data: [{ ...rest }] })
+    const users = await usersModels.getAllUsers({})
+    const response = createResponse({ code: 200, data: users })
     res.status(200).json(response).end()
   } catch (error) {
-    const response = createResponse({ code: 500, data: [{ error }] })
+    const response = createResponse({ code: 500, error })
     res.status(500).json(response).end()
   }
 }
@@ -19,18 +19,17 @@ const getAllUsers = async (req: Request, res: Response) => {
 const getUserByUsername = async (req: Request, res: Response) => {
   const { username } = req.params
   try {
-    const mockUser = await usersModels.getUserByUsername({ username })
+    const user = await usersModels.getUserByUsername({ username })
 
-    if (mockUser.length === 0) {
+    if (user.length === 0) {
       const response = createResponse({ code: 404, message: USERS_MESSAGES.NOT_FOUND(username) })
       return res.status(404).json(response).end()
     }
 
-    const [{ password: mockPassword, ...rest }] = mockUser
-    const response = createResponse({ code: 200, data: [{ ...rest }] })
+    const response = createResponse({ code: 200, data: user })
     res.status(200).json(response).end()
   } catch (error) {
-    const response = createResponse({ code: 500, data: [{ error }] })
+    const response = createResponse({ code: 500, error })
     res.status(500).json(response).end()
   }
 }
@@ -39,7 +38,8 @@ const createUser = async (req: Request, res: Response) => {
   const result = validateUser(req.body)
 
   if (!result.success) {
-    const response = createResponse({ code: 400, data: [{ error: JSON.parse(result.error.message) }] })
+    const error = zodParseError({ errors: result.error })
+    const response = createResponse({ code: 400, error })
     return res.status(400).json(response).end()
   }
 
@@ -55,7 +55,7 @@ const createUser = async (req: Request, res: Response) => {
     const response = createResponse({ code: 201, message: USERS_MESSAGES.CREATED(result.data.username), data: [result.data] })
     res.status(201).json(response).end()
   } catch (error) {
-    const response = createResponse({ code: 500, data: [{ error }] })
+    const response = createResponse({ code: 500, error })
     res.status(500).json(response).end()
   }
 }
@@ -65,7 +65,8 @@ const updateUser = async (req: Request, res: Response) => {
   const result = validatePartialUser(req.body)
 
   if (!result.success) {
-    const response = createResponse({ code: 400, data: [{ error: JSON.parse(result.error.message) }] })
+    const error = zodParseError({ errors: result.error })
+    const response = createResponse({ code: 400, error })
     return res.status(400).json(response).end()
   }
 
@@ -81,7 +82,7 @@ const updateUser = async (req: Request, res: Response) => {
     const response = createResponse({ code: 200, message: USERS_MESSAGES.UPDATE(username), data: [result.data] })
     res.status(200).json(response).end()
   } catch (error) {
-    const response = createResponse({ code: 500, data: [{ error }] })
+    const response = createResponse({ code: 500, error })
     res.status(500).json(response).end()
   }
 }
@@ -101,7 +102,7 @@ const deleteUser = async (req: Request, res: Response) => {
     const response = createResponse({ code: 200, message: USERS_MESSAGES.DELETE(user[0].username) })
     res.status(200).json(response).end()
   } catch (error) {
-    const response = createResponse({ code: 500, data: [{ error }] })
+    const response = createResponse({ code: 500, error })
     res.status(500).json(response).end()
   }
 }

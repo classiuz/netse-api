@@ -3,6 +3,7 @@ import blacklistModel from '@/models/blacklistModel'
 import usersModel from '@/models/usersModel'
 import { validateBlacklist, validatePartialBlacklist } from '@/schemes/blacklist'
 import createResponse from '@/utils/createResponse'
+import zodParseError from '@/utils/zodParseError'
 import type { Request, Response } from 'express'
 
 const getAllBlacklist = async (req: Request, res: Response) => {
@@ -11,7 +12,7 @@ const getAllBlacklist = async (req: Request, res: Response) => {
     const response = createResponse({ code: 200, data })
     res.status(200).json(response).end()
   } catch (error) {
-    const response = createResponse({ code: 500, data: [{ error }] })
+    const response = createResponse({ code: 500, error })
     res.status(500).json(response).end()
   }
 }
@@ -29,7 +30,7 @@ const getBlacklistByClientName = async (req: Request, res: Response) => {
     const response = createResponse({ code: 200, data })
     res.status(200).json(response).end()
   } catch (error) {
-    const response = createResponse({ code: 500, data: [{ error }] })
+    const response = createResponse({ code: 500, error })
     res.status(500).json(response).end()
   }
 }
@@ -38,7 +39,8 @@ const createBlacklist = async (req: Request, res: Response) => {
   const result = validateBlacklist(req.body)
 
   if (!result.success) {
-    const response = createResponse({ code: 400, data: [{ error: JSON.parse(result.error.message) }] })
+    const error = zodParseError({ errors: result.error })
+    const response = createResponse({ code: 400, error })
     return res.status(400).json(response).end()
   }
 
@@ -61,7 +63,7 @@ const createBlacklist = async (req: Request, res: Response) => {
     const response = createResponse({ code: 201, message: BLACKLIST_MESSAGE.CREATED(result.data.clientName), data: [result.data] })
     res.status(201).json(response).end()
   } catch (error) {
-    const response = createResponse({ code: 500, data: [{ error }] })
+    const response = createResponse({ code: 500, error })
     res.status(500).json(response).end()
   }
 }
@@ -71,7 +73,8 @@ const updateBlacklist = async (req: Request, res: Response) => {
   const result = validatePartialBlacklist(req.body)
 
   if (!result.success) {
-    const response = createResponse({ code: 400, data: [{ error: JSON.parse(result.error.message) }] })
+    const error = zodParseError({ errors: result.error })
+    const response = createResponse({ code: 400, error })
     return res.status(400).json(response).end()
   }
 
@@ -87,7 +90,7 @@ const updateBlacklist = async (req: Request, res: Response) => {
     const response = createResponse({ code: 200, message: BLACKLIST_MESSAGE.UPDATE(clientName), data: [result.data] })
     res.status(200).json(response).end()
   } catch (error) {
-    const response = createResponse({ code: 500, data: [{ error }] })
+    const response = createResponse({ code: 500, error })
     res.status(500).json(response).end()
   }
 }
@@ -107,7 +110,7 @@ const deleteBlacklist = async (req: Request, res: Response) => {
     const response = createResponse({ code: 200, message: BLACKLIST_MESSAGE.DELETE(blacklist[0].clientName) })
     res.status(200).json(response).end()
   } catch (error) {
-    const response = createResponse({ code: 500, data: [{ error }] })
+    const response = createResponse({ code: 500, error })
     res.status(500).json(response).end()
   }
 }

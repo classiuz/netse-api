@@ -10,6 +10,15 @@ export interface UserObjectWithIdAndCreateAt extends UserObject {
   createAT: string
 }
 
+export interface UsersModelsGenericProps {
+  querys?: string[]
+}
+
+export interface GetUserProps {
+  username: UserObject['username']
+  selectFields?: [keyof UserObject] | []
+}
+
 export interface UpdateUserProps {
   username: UserObject['username']
   newData: Partial<UserObject>

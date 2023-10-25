@@ -15,7 +15,7 @@ content-type: application/json
 
 {
     "clientName": "frodriguez",
-    "addedBy": "mario",
+    "addedBy": "mario"
 }
 
 ###

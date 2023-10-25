@@ -1,7 +1,7 @@
 import bcrypt from 'bcrypt'
 import pool from '@/config/database'
-import type { UpdateUserProps, UserObject, UserOnlyUsername, UserObjectWithIdAndCreateAt } from '@/types/user'
 import getDate from '@/utils/getDate'
+import type { UpdateUserProps, GetUserProps, UserObject, UserOnlyUsername, UserObjectWithIdAndCreateAt, UsersModelsGenericProps } from '@/types/user'
 
 const createTable = async () => {
   await pool.query(`
@@ -19,13 +19,14 @@ const createTable = async () => {
 
 void createTable()
 
-const getAllUsers = async () => {
-  const [rows] = await pool.query('SELECT id, username, email, firstName, lastName, password, createdAt FROM users')
+const getAllUsers = async ({ querys }: UsersModelsGenericProps) => {
+  const [rows] = await pool.query('SELECT id, username, email, firstName, lastName, createdAt FROM users')
   return rows as UserObjectWithIdAndCreateAt[]
 }
 
-const getUserByUsername = async ({ username }: UserOnlyUsername) => {
-  const [rows] = await pool.query('SELECT id, username, email, firstName, lastName, password, createdAt FROM users WHERE username = (?)', [username])
+const getUserByUsername = async ({ username, selectFields = [] }: GetUserProps) => {
+  const fields = ['id', 'username', 'email', 'firstName', 'lastName', 'createdAt', ...selectFields]
+  const [rows] = await pool.query(`SELECT ${fields.join(', ')} FROM users WHERE username = (?)`, [username])
   return rows as UserObjectWithIdAndCreateAt[]
 }
 
