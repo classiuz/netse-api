@@ -3,9 +3,9 @@ import { type blacklistScheme } from '@/schemes/blacklist'
 
 export type blacklistObject = z.infer<typeof blacklistScheme>
 
-export type blacklistOnlyClientName = Pick<blacklistObject, 'clientName'>
+export type blacklistOnlyClientId = Pick<blacklistObject, 'clientId'>
 
-export interface UpdateUserProps {
-  clientName: blacklistObject['clientName']
+export interface UpdateBlacklistProps {
+  clientId: blacklistObject['clientId']
   newData: Partial<blacklistObject>
 }

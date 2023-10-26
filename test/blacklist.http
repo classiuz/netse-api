@@ -1,45 +1,54 @@
 # For Testing read README.md Test section
 @baseUrl = {{$dotenv URL}}:{{$dotenv PORT}}{{$dotenv ROOT_PATH}}
 @key = {{$dotenv API_KEY}}
+@path = blacklist
 
 # GET ALL BLACKLIST
-GET {{baseUrl}}/blacklist
+GET {{baseUrl}}/{{path}}
 authorization: {{key}}
 
 ###
 
 # CREATE BLACKLIST - Failed
-POST {{baseUrl}}/blacklist
+POST {{baseUrl}}/{{path}}
 authorization: {{key}}
 content-type: application/json
 
 {
-    "clientName": "frodriguez",
-    "addedBy": "mario"
+  "clientId": "000026",
+  "reason": "Razón de ejemplo",
+  "addedBy": "mario"
 }
 
 ###
 
 # CREATE BLACKLIST - Successfully
-POST {{baseUrl}}/blacklist
+POST {{baseUrl}}/{{path}}
 authorization: {{key}}
 content-type: application/json
 
 {
-  "document": 44990850,
-  "clientName": "Franco Rodríguez",
-  "email": "frodriguez@netse.com.ar",
-  "reason": "Se portó mal.",
-  "addedBy": "frodriguez",
-  "address": {
-    "province": "Buenos Aires",
-    "neighborhood": "Parque Patricio",
-    "direction": "Lavárden 43"
-  },
-  "coordinates": {
-    "lat": -34.636966,
-    "lng": -58.402071
-  }
+  "clientId": "000026",
+  "reason": "Deudor FTTH",
+  "addedBy": "frodriguez"
 }
+
+###
+
+# UPDATE BLACKLIST
+PATCH {{baseUrl}}/{{path}}/000026
+authorization: {{key}}
+content-type: application/json
+
+{
+  "reason": "Actualización del motivo.",
+  "addedBy": "frodriguez"
+}
+
+###
+
+# DELETE BLACKLIST
+DELETE {{baseUrl}}/{{path}}/000026
+authorization: {{key}}
 
 ###

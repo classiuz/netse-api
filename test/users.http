@@ -1,14 +1,15 @@
 # For Testing read README.md Test section
 @baseUrl = {{$dotenv URL}}:{{$dotenv PORT}}{{$dotenv ROOT_PATH}}
 @key = {{$dotenv API_KEY}}
+@path = users
 
 # GET ALL USERS
-GET {{baseUrl}}/users?key={{key}}
+GET {{baseUrl}}/{{path}}?key={{key}}
 
 ###
 
 # CREATE USER - Failed
-POST {{baseUrl}}/users
+POST {{baseUrl}}/{{path}}
 authorization: {{key}}
 content-type: application/json
 
@@ -19,7 +20,7 @@ content-type: application/json
 ###
 
 # CREATE USER - Successfully
-POST {{baseUrl}}/users
+POST {{baseUrl}}/{{path}}
 authorization: {{key}}
 content-type: application/json
 
@@ -34,24 +35,23 @@ content-type: application/json
 ###
 
 # GET USERS BY USERNAME
-GET {{baseUrl}}/users/frodriguez
+GET {{baseUrl}}/{{path}}/frodriguez
 authorization: {{key}}
 
 ###
 
 # DELETE USER
-DELETE {{baseUrl}}/users/flloveras
+DELETE {{baseUrl}}/{{path}}/frodriguez
 authorization: {{key}}
 
 ###
 
 # UPDTATE A USER
-PATCH {{baseUrl}}/users/frodriguez
+PATCH {{baseUrl}}/{{path}}/frodriguez
 authorization: {{key}}
 content-type: application/json
 
 {
     "sql": "SELECT * FROM user",
-    "username": "flloveras",
     "email": "flloveras@netse.com.ar"
 }

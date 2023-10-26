@@ -19,13 +19,22 @@ export const USERS_MESSAGES = {
   DELETE: (username: string) => `The user ${username} was delete successfully.`
 }
 
+export const CLIENT_MESSAGE = {
+  NOT_FOUND: (clientId: string) => `The client with id ${clientId} was not found.`,
+  CREATED: (clientName: string) => `Client ${clientName} was created successfully.`,
+  ALREADY_CREATED: (clientId: string | number) => `Client with id ${clientId} was already created.`,
+  CLIENT_DONT_EXIST: (clientId: string | number) => `The client ${clientId} not exist.`,
+  UPDATE: (clientId: string | number) => `The client with id ${clientId} was update correctly.`,
+  DELETE: (clientId: number | undefined | null) => `The client with id ${clientId} was delete successfully.`
+}
+
 export const BLACKLIST_MESSAGE = {
-  NOT_FOUND: (clientName: string) => `The blacklist with the client ${clientName} was not found.`,
-  CREATED: (clientName: string) => `BlackList client ${clientName} was created successfully.`,
+  NOT_FOUND: (clientId: string) => `The blacklist with the client ${clientId} was not found.`,
+  CREATED: (clientId: string) => `BlackList client id ${clientId} was created successfully.`,
   USER_DONT_EXIST: (username: string) => `The user ${username} not exist.`,
-  ALREADY_CREATED: (clientName: string) => `Blacklist with the client ${clientName} was already created.`,
-  UPDATE: (clientName: string) => `The blacklist with the client ${clientName} was update correctly.`,
-  DELETE: (clientName: string) => `The blacklist with the client ${clientName} was delete successfully.`
+  ALREADY_CREATED: (clientId: string) => `Blacklist with the client id ${clientId} was already created.`,
+  UPDATE: (clientId: string) => `The blacklist with the client ${clientId} was update correctly.`,
+  DELETE: (clientId: string) => `The blacklist with the client ${clientId} was delete successfully.`
 }
 
 export const TOKEN_MESSAGE = {

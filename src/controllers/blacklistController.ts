@@ -17,13 +17,13 @@ const getAllBlacklist = async (req: Request, res: Response) => {
   }
 }
 
-const getBlacklistByClientName = async (req: Request, res: Response) => {
-  const { clientName } = req.params
+const getBlacklistById = async (req: Request, res: Response) => {
+  const { clientId } = req.params
   try {
-    const data = await blacklistModel.getBlacklistByClientName({ clientName })
+    const data = await blacklistModel.getBlacklistById({ clientId })
 
     if (data.length === 0) {
-      const response = createResponse({ code: 404, message: BLACKLIST_MESSAGE.NOT_FOUND(clientName) })
+      const response = createResponse({ code: 404, message: BLACKLIST_MESSAGE.NOT_FOUND(clientId) })
       return res.status(404).json(response).end()
     }
 
@@ -44,10 +44,10 @@ const createBlacklist = async (req: Request, res: Response) => {
     return res.status(400).json(response).end()
   }
 
-  const alreadyCreated = await blacklistModel.getBlacklistByClientName({ clientName: result.data.clientName })
+  const blacklist = await blacklistModel.getBlacklistById({ clientId: result.data.clientId })
 
-  if (alreadyCreated.length >= 1) {
-    const response = createResponse({ code: 409, message: BLACKLIST_MESSAGE.ALREADY_CREATED(result.data.clientName) })
+  if (blacklist.length >= 1) {
+    const response = createResponse({ code: 409, message: BLACKLIST_MESSAGE.ALREADY_CREATED(result.data.clientId) })
     return res.status(409).json(response).end()
   }
 
@@ -60,7 +60,7 @@ const createBlacklist = async (req: Request, res: Response) => {
 
   try {
     await blacklistModel.createBlacklist(result.data)
-    const response = createResponse({ code: 201, message: BLACKLIST_MESSAGE.CREATED(result.data.clientName), data: [result.data] })
+    const response = createResponse({ code: 201, message: BLACKLIST_MESSAGE.CREATED(result.data.clientId), data: [result.data] })
     res.status(201).json(response).end()
   } catch (error) {
     const response = createResponse({ code: 500, error })
@@ -69,7 +69,7 @@ const createBlacklist = async (req: Request, res: Response) => {
 }
 
 const updateBlacklist = async (req: Request, res: Response) => {
-  const { clientName } = req.params
+  const { clientId } = req.params
   const result = validatePartialBlacklist(req.body)
 
   if (!result.success) {
@@ -79,15 +79,15 @@ const updateBlacklist = async (req: Request, res: Response) => {
   }
 
   try {
-    const blacklist = await blacklistModel.getBlacklistByClientName({ clientName })
+    const blacklist = await blacklistModel.getBlacklistById({ clientId })
 
     if (blacklist.length === 0) {
-      const response = createResponse({ code: 404, message: BLACKLIST_MESSAGE.NOT_FOUND(clientName) })
+      const response = createResponse({ code: 404, message: BLACKLIST_MESSAGE.NOT_FOUND(clientId) })
       return res.status(404).json(response).end()
     }
 
-    await blacklistModel.updateBlacklist({ clientName, newData: result.data })
-    const response = createResponse({ code: 200, message: BLACKLIST_MESSAGE.UPDATE(clientName), data: [result.data] })
+    await blacklistModel.updateBlacklist({ clientId, newData: result.data })
+    const response = createResponse({ code: 200, message: BLACKLIST_MESSAGE.UPDATE(clientId), data: [result.data] })
     res.status(200).json(response).end()
   } catch (error) {
     const response = createResponse({ code: 500, error })
@@ -96,18 +96,18 @@ const updateBlacklist = async (req: Request, res: Response) => {
 }
 
 const deleteBlacklist = async (req: Request, res: Response) => {
-  const { clientName } = req.params
+  const { clientId } = req.params
 
   try {
-    const blacklist = await blacklistModel.getBlacklistByClientName({ clientName })
+    const blacklist = await blacklistModel.getBlacklistById({ clientId })
 
     if (blacklist.length === 0) {
-      const response = createResponse({ code: 404, message: BLACKLIST_MESSAGE.NOT_FOUND(clientName) })
+      const response = createResponse({ code: 404, message: BLACKLIST_MESSAGE.NOT_FOUND(clientId) })
       return res.status(404).json(response).end()
     }
 
-    await blacklistModel.deleteBlacklist({ clientName: blacklist[0].clientName })
-    const response = createResponse({ code: 200, message: BLACKLIST_MESSAGE.DELETE(blacklist[0].clientName) })
+    await blacklistModel.deleteBlacklist({ clientId: blacklist[0].clientId })
+    const response = createResponse({ code: 200, message: BLACKLIST_MESSAGE.DELETE(blacklist[0].clientId) })
     res.status(200).json(response).end()
   } catch (error) {
     const response = createResponse({ code: 500, error })
@@ -117,7 +117,7 @@ const deleteBlacklist = async (req: Request, res: Response) => {
 
 export default {
   getAllBlacklist,
-  getBlacklistByClientName,
+  getBlacklistById,
   createBlacklist,
   updateBlacklist,
   deleteBlacklist

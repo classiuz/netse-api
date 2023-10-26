@@ -5,8 +5,8 @@ const router = Router()
 
 router.get('/', blacklistController.getAllBlacklist)
 router.post('/', blacklistController.createBlacklist)
-router.get('/:clientName', blacklistController.getBlacklistByClientName)
-router.patch('/:clientName', blacklistController.updateBlacklist)
-router.delete('/:clientName', blacklistController.deleteBlacklist)
+router.get('/:clientId', blacklistController.getBlacklistById)
+router.patch('/:clientId', blacklistController.updateBlacklist)
+router.delete('/:clientId', blacklistController.deleteBlacklist)
 
 export default router

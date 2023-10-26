@@ -54,19 +54,29 @@ npm run production
 
 ### 🧮 Endpoints Table
 
-| Route         | Method        | Endpoint          | Authentication     | Description                  |
-| ------------- | ------------- | -------------     | -------------      | -------------                |
-| /users        | `GET`         | /users            | API Token require  | Get all users                |
-| /users        | `GET`         | /users/:username  | API Token require  | Get user by username         |
-| /users        | `POST`        | /users            | API Token require  | Create a new user            |
-| /users        | `DELETE`      | /users/:username  | API Token require  | Delete a user by username    |
-| /users        | `PATCH`       | /users/:username  | API Token require  | Update a user by username    |
-| /tokens       | `GET`         | /tokens           | API Token require  | Get all tokens               |
-| /tokens       | `POST`        | /tokens           | API Token require  | Create a new token           |
-| /tokens       | `DELETE`      | /tokens           | API Token require  | Delete a token               |
-| /auth         | `GET`         | /auth             | API Token require  | Validate user authentication |
-| /blacklist    | `GET`         | /blacklist        | API Token require  | Get all blacklist            |
-| /blacklist    | `POST`        | /blacklist        | API Token require  | Create a new blacklist       |
+| Route         | Method        | Endpoint              | Authentication     | Description                        |
+| ------------- | ------------- | -------------         | -------------      | -------------                      |
+| /users        | `GET`         | /users                | `API Token`        | Get all users                      |
+| /users        | `GET`         | /users/:username      | `API Token`        | Get user by username               |
+| /users        | `POST`        | /users                | `API Token`        | Create a new user                  |
+| /users        | `DELETE`      | /users/:username      | `API Token`        | Delete a user by username          |
+| /users        | `PATCH`       | /users/:username      | `API Token`        | Update a user by username          |
+| /tokens       | `GET`         | /tokens               | `API Token`        | Get all tokens                     |
+| /tokens       | `POST`        | /tokens               | `API Token`        | Create a new token                 |
+| /tokens       | `DELETE`      | /tokens/:tokenName    | `API Token`        | Delete a token by tokenName        |
+| /auth         | `GET`         | /auth                 | `API Token`        | Validate user authentication       |
+| /blacklist    | `GET`         | /blacklist            | `API Token`        | Get all blacklist                  |
+| /blacklist    | `GET`         | /blacklist/:clientId  | `API Token`        | Get blacklist by clientId          |
+| /blacklist    | `POST`        | /blacklist            | `API Token`        | Create a new blacklist             |
+| /blacklist    | `DELETE`      | /blacklist/:clientId  | `API Token`        | Delete a blacklist by clientId     |
+| /blacklist    | `PATCH`       | /blacklist/:clientId  | `API Token`        | Update a blacklist by clientId     |
+| /clients      | `GET`         | /clients              | `API Token`        | Get all clients                    |
+| /clients      | `GET`         | /clients/:clientId    | `API Token`        | Get client by clientId             |
+| /clients      | `POST`        | /clients              | `API Token`        | Create a new client                |
+| /clients      | `DELETE`      | /clients/:clientId    | `API Token`        | Delete a client by clientId        |
+| /clients      | `PATCH`       | /clients/:clientId    | `API Token`        | Update a client by clientId        |
+
+
 
 ## 📊 Test 
 For testing you need to install [REST Client](https://github.com/Huachao/vscode-restclient) extension on your Visual Studio Code. Then check the key on `.env` file is valid key.
