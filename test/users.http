@@ -10,10 +10,10 @@ GET {{baseUrl}}/{{path}}?key={{key}}
 
 # CREATE USER - Failed
 POST {{baseUrl}}/{{path}}
-authorization: {{key}}
 content-type: application/json
 
 {
+    "key": "{{key}}",
     "username": 12312
 }
 

@@ -52,6 +52,32 @@ npm run production
 
 ## 📖 Documentation
 
+### 🔐 Authentication
+
+Most routes are protected and an API KEY will need to be provided to access the information. The API KEY can be sent in three different ways:
+
+1. Using Query params with `?key=VALUE`. For example
+
+```htth
+https://localhost:3090/api/users?key=KEY
+```
+
+2. Using `Authorization` header. For example
+```http
+GET https://localhost:3090/api/users
+Authorization: KEY
+```
+
+3. Using the `body` of the request. For example
+```http
+GET https://localhost:3090/api/users
+content-type: application/json
+
+{
+  "key": KEY  
+}
+```
+
 ### 🧮 Endpoints Table
 
 | Route         | Method        | Endpoint              | Authentication     | Description                        |
