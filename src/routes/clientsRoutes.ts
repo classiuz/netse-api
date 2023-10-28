@@ -5,8 +5,8 @@ const router = Router()
 
 router.get('/', clientsController.getAllClients)
 router.post('/', clientsController.createClient)
-router.get('/:clientId', clientsController.getClientById)
-router.patch('/:clientId', clientsController.updateClient)
-router.delete('/:clientId', clientsController.deleteClient)
+router.get('/:id', clientsController.getClientById)
+router.patch('/:id', clientsController.updateClient)
+router.delete('/:id', clientsController.deleteClient)
 
 export default router

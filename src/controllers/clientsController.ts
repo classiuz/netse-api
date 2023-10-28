@@ -17,12 +17,12 @@ const getAllClients = async (req: Request, res: Response) => {
 }
 
 const getClientById = async (req: Request, res: Response) => {
-  const { clientId } = req.params
+  const { id } = req.params
   try {
-    const data = await clientsModel.getClientById({ clientId: Number(clientId) })
+    const data = await clientsModel.getClientById({ id: Number(id) })
 
     if (data.length === 0) {
-      const response = createResponse({ code: 404, message: CLIENT_MESSAGE.NOT_FOUND(clientId) })
+      const response = createResponse({ code: 404, message: CLIENT_MESSAGE.NOT_FOUND(id) })
       return res.status(404).json(response).end()
     }
 
@@ -45,7 +45,7 @@ const createClient = async (req: Request, res: Response) => {
 
   try {
     await clientsModel.createClient(result.data)
-    const response = createResponse({ code: 201, message: CLIENT_MESSAGE.CREATED(`${result.data.clientLastName} ${result.data.clientFirstName}`), data: [result.data] })
+    const response = createResponse({ code: 201, message: CLIENT_MESSAGE.CREATED(`${result.data.lastName} ${result.data.firstName}`), data: [result.data] })
     res.status(201).json(response).end()
   } catch (error) {
     const response = createResponse({ code: 500, error })
@@ -54,7 +54,7 @@ const createClient = async (req: Request, res: Response) => {
 }
 
 const updateClient = async (req: Request, res: Response) => {
-  const { clientId } = req.params
+  const { id } = req.params
   const result = validatePartialClient(req.body)
 
   if (!result.success) {
@@ -63,16 +63,21 @@ const updateClient = async (req: Request, res: Response) => {
     return res.status(400).json(response).end()
   }
 
+  if (Object.keys(result.data).length === 0) {
+    const response = createResponse({ code: 400, error: CLIENT_MESSAGE.EMPTY_UPDATE(id) })
+    return res.status(400).json(response).end()
+  }
+
   try {
-    const client = await clientsModel.getClientById({ clientId: Number(clientId) })
+    const client = await clientsModel.getClientById({ id: Number(id) })
 
     if (client.length === 0) {
-      const response = createResponse({ code: 404, message: CLIENT_MESSAGE.NOT_FOUND(clientId) })
+      const response = createResponse({ code: 404, message: CLIENT_MESSAGE.NOT_FOUND(id) })
       return res.status(404).json(response).end()
     }
 
-    await clientsModel.updateClient({ clientId: Number(clientId), newData: result.data })
-    const response = createResponse({ code: 200, message: CLIENT_MESSAGE.UPDATE(clientId), data: [result.data] })
+    await clientsModel.updateClient({ id: Number(id), newData: result.data })
+    const response = createResponse({ code: 200, message: CLIENT_MESSAGE.UPDATE(id), data: [result.data] })
     res.status(200).json(response).end()
   } catch (error) {
     const response = createResponse({ code: 500, error })
@@ -81,18 +86,18 @@ const updateClient = async (req: Request, res: Response) => {
 }
 
 const deleteClient = async (req: Request, res: Response) => {
-  const { clientId } = req.params
+  const { id } = req.params
 
   try {
-    const client = await clientsModel.getClientById({ clientId: Number(clientId) })
+    const client = await clientsModel.getClientById({ id: Number(id) })
 
     if (client.length === 0) {
-      const response = createResponse({ code: 404, message: CLIENT_MESSAGE.NOT_FOUND(clientId) })
+      const response = createResponse({ code: 404, message: CLIENT_MESSAGE.NOT_FOUND(id) })
       return res.status(404).json(response).end()
     }
 
-    await clientsModel.deleteClient({ clientId: client[0].clientId })
-    const response = createResponse({ code: 200, message: CLIENT_MESSAGE.DELETE(client[0].clientId) })
+    await clientsModel.deleteClient({ id: client[0].id })
+    const response = createResponse({ code: 200, message: CLIENT_MESSAGE.DELETE(client[0].id) })
     res.status(200).json(response).end()
   } catch (error) {
     const response = createResponse({ code: 500, error })

@@ -1,0 +1,68 @@
+# For Testing read README.md Test section
+@baseUrl = {{$dotenv URL}}:{{$dotenv PORT}}{{$dotenv ROOT_PATH}}
+@key = {{$dotenv API_KEY}}
+@path = services
+
+# GET ALL SERVICES
+GET {{baseUrl}}/{{path}}?key={{key}}
+
+###
+
+# CREATE SERVICE - Failed
+POST {{baseUrl}}/{{path}}
+content-type: application/json
+
+{
+  "key": "{{key}}",
+  "name": 123
+}
+
+###
+
+# CREATE SERVICE - Successfully
+POST {{baseUrl}}/{{path}}
+authorization: {{key}}
+content-type: application/json
+
+{
+  "name": "FTTH2",
+  "alternativeName": "Fibra Óptica",
+  "createdBy": "frodriguez"
+}
+
+###
+
+# GET SERVICE BY NAME
+GET {{baseUrl}}/{{path}}/FTTH
+authorization: {{key}}
+
+###
+
+# DELETE SERVICE
+DELETE {{baseUrl}}/{{path}}/FTTH2
+authorization: {{key}}
+
+###
+
+# UPDTATE A SERVICE - Failed
+PATCH {{baseUrl}}/{{path}}/FTTH
+authorization: {{key}}
+content-type: application/json
+
+{
+  "sql": "SELECT * FROM user",
+  "alternativeName": "Update Fibra Óptica",
+  "createdBy": "carlos"
+}
+
+###
+
+# UPDATE SERVICE - Successfully
+PATCH {{baseUrl}}/{{path}}/FTTH
+authorization: {{key}}
+content-type: application/json
+
+{
+  "alternativeName": "Update Fibra Óptica",
+  "createdBy": "frodriguez"
+}

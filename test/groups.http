@@ -1,57 +1,53 @@
 # For Testing read README.md Test section
 @baseUrl = {{$dotenv URL}}:{{$dotenv PORT}}{{$dotenv ROOT_PATH}}
 @key = {{$dotenv API_KEY}}
-@path = users
+@path = groups
 
-# GET ALL USERS
+# GET ALL GROUPS
 GET {{baseUrl}}/{{path}}?key={{key}}
 
 ###
 
-# CREATE USER - Failed
+# CREATE GROUP - Failed
 POST {{baseUrl}}/{{path}}
 content-type: application/json
 
 {
-  "key": "{{key}}",
-  "username": 12312
+  "key": "{{key}}"
 }
 
 ###
 
-# CREATE USER - Successfully
+# CREATE GROUP - Successfully
 POST {{baseUrl}}/{{path}}
 authorization: {{key}}
 content-type: application/json
 
 {
-  "username": "frodriguez",
-  "firstName": "Franco",
-  "lastName": "Rodríguez",
-  "email": "frodriguez@netse.com.ar",
-  "password": "test123"
+  "name": "testGroup",
+  "towers": "TODO"
 }
 
 ###
 
-# GET USERS BY USERNAME
-GET {{baseUrl}}/{{path}}/frodriguez
+# GET GROUP BY NAME
+GET {{baseUrl}}/{{path}}/testGroup
 authorization: {{key}}
 
 ###
 
-# DELETE USER
-DELETE {{baseUrl}}/{{path}}/frodriguez
+# DELETE GROUP
+DELETE {{baseUrl}}/{{path}}/testGroup
 authorization: {{key}}
 
 ###
 
-# UPDTATE A USER
-PATCH {{baseUrl}}/{{path}}/frodriguez
+# UPDTATE A GROUP
+PATCH {{baseUrl}}/{{path}}/testGroup
 authorization: {{key}}
 content-type: application/json
 
 {
   "sql": "SELECT * FROM user",
-  "email": "flloveras@netse.com.ar"
+  "towers": "CHANGE"
 }

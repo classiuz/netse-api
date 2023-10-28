@@ -2,8 +2,8 @@ import usersModels from '@/models/usersModel'
 import createResponse from '@/utils/createResponse'
 import { USERS_MESSAGES } from '@/const/messages'
 import { validatePartialUser, validateUser } from '@/schemes/users'
-import type { Request, Response } from 'express'
 import zodParseError from '@/utils/zodParseError'
+import type { Request, Response } from 'express'
 
 const getAllUsers = async (req: Request, res: Response) => {
   try {
@@ -67,6 +67,11 @@ const updateUser = async (req: Request, res: Response) => {
   if (!result.success) {
     const error = zodParseError({ errors: result.error })
     const response = createResponse({ code: 400, error })
+    return res.status(400).json(response).end()
+  }
+
+  if (Object.keys(result.data).length === 0) {
+    const response = createResponse({ code: 400, error: USERS_MESSAGES.EMPTY_UPDATE(username) })
     return res.status(400).json(response).end()
   }
 

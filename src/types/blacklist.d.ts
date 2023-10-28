@@ -1,11 +1,16 @@
 import type z from 'zod'
 import { type blacklistScheme } from '@/schemes/blacklist'
 
-export type blacklistObject = z.infer<typeof blacklistScheme>
+export type BlacklistObject = z.infer<typeof blacklistScheme>
 
-export type blacklistOnlyClientId = Pick<blacklistObject, 'clientId'>
+export type BlacklistOnlyClientId = Pick<BlacklistObject, 'clientId'>
 
 export interface UpdateBlacklistProps {
-  clientId: blacklistObject['clientId']
-  newData: Partial<blacklistObject>
+  clientId: BlacklistObject['clientId']
+  newData: Partial<BlacklistObject>
+}
+
+export interface BlacklistReturn extends BlacklistObject {
+  id: number
+  createdAt: string
 }

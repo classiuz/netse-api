@@ -17,7 +17,7 @@ content-type: application/json
 {
   "clientId": "000026",
   "reason": "Razón de ejemplo",
-  "addedBy": "mario"
+  "createdBy": "mario"
 }
 
 ###
@@ -30,7 +30,7 @@ content-type: application/json
 {
   "clientId": "000026",
   "reason": "Deudor FTTH",
-  "addedBy": "frodriguez"
+  "createdBy": "frodriguez"
 }
 
 ###
@@ -42,7 +42,7 @@ content-type: application/json
 
 {
   "reason": "Actualización del motivo.",
-  "addedBy": "frodriguez"
+  "createdBy": "frodriguez"
 }
 
 ###

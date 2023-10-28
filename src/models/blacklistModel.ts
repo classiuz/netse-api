@@ -1,38 +1,23 @@
 import pool from '@/config/database'
 import getDate from '@/utils/getDate'
-import type { blacklistObject, blacklistOnlyClientId, UpdateBlacklistProps } from '@/types/blacklist'
-
-const createTable = async () => {
-  await pool.query(`
-    CREATE TABLE IF NOT EXISTS blacklist (
-      id INT PRIMARY KEY AUTO_INCREMENT,
-      clientId VARCHAR(10) NOT NULL,
-      reason TEXT NOT NULL,
-      addedBy VARCHAR(100) NOT NULL,
-      FOREIGN KEY (addedBy) REFERENCES users(username),
-      createdAt VARCHAR(25) NOT NULL
-    )
-  `)
-}
-
-void createTable()
+import type { BlacklistObject, BlacklistReturn, BlacklistOnlyClientId, UpdateBlacklistProps } from '@/types/blacklist'
 
 const getAllBlacklist = async () => {
-  const [rows] = await pool.query('SELECT id, clientId, reason, addedBy, createdAt FROM blacklist')
-  return rows as blacklistObject[]
+  const [rows] = await pool.query('SELECT id, clientId, reason, createdBy, createdAt FROM blacklist')
+  return rows as BlacklistReturn[]
 }
 
-const getBlacklistById = async ({ clientId }: blacklistOnlyClientId) => {
-  const [rows] = await pool.query('SELECT id, clientId, reason, addedBy, createdAt FROM blacklist WHERE clientId = (?)', [clientId])
-  return rows as blacklistObject[]
+const getBlacklistById = async ({ clientId }: BlacklistOnlyClientId) => {
+  const [rows] = await pool.query('SELECT id, clientId, reason, createdBy, createdAt FROM blacklist WHERE clientId = (?)', [clientId])
+  return rows as BlacklistReturn[]
 }
 
-const createBlacklist = async ({ clientId, reason, addedBy }: blacklistObject) => {
+const createBlacklist = async ({ clientId, reason, createdBy }: BlacklistObject) => {
   const date = getDate()
 
   try {
-    await pool.query('INSERT INTO blacklist (clientId, reason, addedBy, createdAt) VALUES (?, ?, ?, ?)',
-      [clientId, reason, addedBy, date]
+    await pool.query('INSERT INTO blacklist (clientId, reason, createdBy, createdAt) VALUES (?, ?, ?, ?)',
+      [clientId, reason, createdBy, date]
     )
   } catch (error) {
     throw error
@@ -47,7 +32,7 @@ const updateBlacklist = async ({ clientId, newData }: UpdateBlacklistProps) => {
   }
 }
 
-const deleteBlacklist = async ({ clientId }: blacklistOnlyClientId) => {
+const deleteBlacklist = async ({ clientId }: BlacklistOnlyClientId) => {
   try {
     await pool.query('DELETE FROM blacklist WHERE (clientId) = (?)', [clientId])
   } catch (error) {

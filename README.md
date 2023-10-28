@@ -74,35 +74,73 @@ GET https://localhost:3090/api/users
 content-type: application/json
 
 {
-  "key": KEY  
+  "key": "KEY"  
 }
 ```
 
 ### 🧮 Endpoints Table
 
-| Route         | Method        | Endpoint              | Authentication     | Description                        |
-| ------------- | ------------- | -------------         | -------------      | -------------                      |
-| /users        | `GET`         | /users                | `API Token`        | Get all users                      |
-| /users        | `GET`         | /users/:username      | `API Token`        | Get user by username               |
-| /users        | `POST`        | /users                | `API Token`        | Create a new user                  |
-| /users        | `DELETE`      | /users/:username      | `API Token`        | Delete a user by username          |
-| /users        | `PATCH`       | /users/:username      | `API Token`        | Update a user by username          |
-| /tokens       | `GET`         | /tokens               | `API Token`        | Get all tokens                     |
-| /tokens       | `POST`        | /tokens               | `API Token`        | Create a new token                 |
-| /tokens       | `DELETE`      | /tokens/:tokenName    | `API Token`        | Delete a token by tokenName        |
-| /auth         | `GET`         | /auth                 | `API Token`        | Validate user authentication       |
-| /blacklist    | `GET`         | /blacklist            | `API Token`        | Get all blacklist                  |
-| /blacklist    | `GET`         | /blacklist/:clientId  | `API Token`        | Get blacklist by clientId          |
-| /blacklist    | `POST`        | /blacklist            | `API Token`        | Create a new blacklist             |
-| /blacklist    | `DELETE`      | /blacklist/:clientId  | `API Token`        | Delete a blacklist by clientId     |
-| /blacklist    | `PATCH`       | /blacklist/:clientId  | `API Token`        | Update a blacklist by clientId     |
-| /clients      | `GET`         | /clients              | `API Token`        | Get all clients                    |
-| /clients      | `GET`         | /clients/:clientId    | `API Token`        | Get client by clientId             |
-| /clients      | `POST`        | /clients              | `API Token`        | Create a new client                |
-| /clients      | `DELETE`      | /clients/:clientId    | `API Token`        | Delete a client by clientId        |
-| /clients      | `PATCH`       | /clients/:clientId    | `API Token`        | Update a client by clientId        |
+| Route                       | Method        | Endpoint                      | Authentication     | Description                        |
+| -------------               | ------------- | -------------                 | -------------      | -------------                      |
+| [/users](#users)            | `GET`         | /users                        | `API Token`        | Get all users                      |
+| [/users](#users)            | `GET`         | /users/:username              | `API Token`        | Get user by username               |
+| [/users](#users)            | `POST`        | /users                        | `API Token`        | Create a new user                  |
+| [/users](#users)            | `DELETE`      | /users/:username              | `API Token`        | Delete a user by username          |
+| [/users](#users)            | `PATCH`       | /users/:username              | `API Token`        | Update a user by username          |
+| [/tokens](#tokens)          | `GET`         | /tokens                       | `API Token`        | Get all tokens                     |
+| [/tokens](#tokens)          | `POST`        | /tokens                       | `API Token`        | Create a new token                 |
+| [/tokens](#tokens)          | `DELETE`      | /tokens/:name                 | `API Token`        | Delete a token by token name       |
+| [/auth](#auth)              | `GET`         | /auth                         | `API Token`        | Validate user authentication       |
+| [/blacklist](#blacklist)    | `GET`         | /blacklist                    | `API Token`        | Get all blacklist                  |
+| [/blacklist](#blacklist)    | `GET`         | /blacklist/:clientId          | `API Token`        | Get blacklist by clientId          |
+| [/blacklist](#blacklist)    | `POST`        | /blacklist                    | `API Token`        | Create a new blacklist             |
+| [/blacklist](#blacklist)    | `DELETE`      | /blacklist/:clientId          | `API Token`        | Delete a blacklist by clientId     |
+| [/blacklist](#blacklist)    | `PATCH`       | /blacklist/:clientId          | `API Token`        | Update a blacklist by clientId     |
+| [/clients](#clients)        | `GET`         | /clients                      | `API Token`        | Get all clients                    |
+| [/clients](#clients)        | `GET`         | /clients/:id                  | `API Token`        | Get client by client id            |
+| [/clients](#clients)        | `POST`        | /clients                      | `API Token`        | Create a new client                |
+| [/clients](#clients)        | `DELETE`      | /clients/:id                  | `API Token`        | Delete a client by client id       |
+| [/clients](#clients)        | `PATCH`       | /clients/:id                  | `API Token`        | Update a client by client id       |
+| [/services](#services)      | `GET`         | /services                     | `API Token`        | Get all services                   |
+| [/services](#services)      | `GET`         | /services/:name               | `API Token`        | Get service by service name        |
+| [/services](#services)      | `POST`        | /services                     | `API Token`        | Create a new service               |
+| [/services](#services)      | `DELETE`      | /services/:name               | `API Token`        | Delete a service by service name   |
+| [/services](#services)      | `PATCH`       | /services/:name               | `API Token`        | Update a service by service name   |
+| [/groups](#groups)          | `GET`         | /groups                       | `API Token`        | Get all groups                     |
+| [/groups](#groups)          | `GET`         | /groups/:name                 | `API Token`        | Get group by name                  |
+| [/groups](#groups)          | `POST`        | /groups                       | `API Token`        | Create a new group                 |
+| [/groups](#groups)          | `DELETE`      | /groups/:name                 | `API Token`        | Delete a group by name             |
+| [/groups](#groups)          | `PATCH`       | /groups/:name                 | `API Token`        | Update a group by name             |
 
+### 🔀 Routes
 
+#### /users
+
+⌚ Developing...
+
+#### /tokens
+
+⌚ Developing...
+
+#### /auth
+
+⌚ Developing...
+
+#### /blacklist
+
+⌚ Developing...
+
+#### /clients
+
+⌚ Developing...
+
+#### /services
+
+⌚ Developing...
+
+#### /groups
+
+⌚ Developing...
 
 ## 📊 Test 
 For testing you need to install [REST Client](https://github.com/Huachao/vscode-restclient) extension on your Visual Studio Code. Then check the key on `.env` file is valid key.
@@ -114,4 +152,4 @@ For testing you need to install [REST Client](https://github.com/Huachao/vscode-
 KEY=VALID KEY
 ```
 
-Now you can test the api. Every file inside `test` folder represents an route, for example `/api/users` it is `users.http` file.
+Now you can test the api. Every file inside `test` folder represents an route, for example `/api/users` is `users.http` file, `/api/services` is `services.http` file and so on.

@@ -3,8 +3,7 @@ import z from 'zod'
 export const blacklistScheme = z.object({
   clientId: z.string(),
   reason: z.string(),
-  addedBy: z.string(),
-  createdAt: z.string().optional()
+  createdBy: z.string()
 })
 
 export const validateBlacklist = (value: typeof blacklistScheme) => {

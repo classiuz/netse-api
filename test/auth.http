@@ -8,8 +8,8 @@ authorization: {{key}}
 Content-Type: application/json
 
 {
-    "username": "frodriguez",
-    "password": "test123"
+  "username": "frodriguez",
+  "password": "test123"
 }
 
 ###

@@ -15,7 +15,7 @@ authorization: {{key}}
 content-type: application/json
 
 {
-    "clientId": "asadssd"
+  "id": "asadssd"
 }
 
 ###
@@ -26,19 +26,19 @@ authorization: {{key}}
 content-type: application/json
 
 {
-    "clientFirstName": "Franco Germán",
-    "clientLastName": "Rodríguez Llovera",
-    "clientDocument": 44990850,
-    "clientEmail": "frodriguez@netse.com.ar",
-    "clientAddress": {
-      "province": "Buenos Aires",
-      "neighborhood": "Parque Patricio",
-      "direction": "Lavárden 43"
-    },
-    "clientCoordinates": {
-      "lat": -34.636966,
-      "lng": -58.402071
-    }
+  "firstName": "Franco Germán",
+  "lastName": "Rodríguez Llovera",
+  "document": 44990850,
+  "email": "frodriguez@netse.com.ar",
+  "address": {
+    "province": "Buenos Aires",
+    "neighborhood": "Parque Patricio",
+    "direction": "Lavárden 43"
+  },
+  "coordinates": {
+    "lat": -34.636966,
+    "lng": -58.402071
+  }
 }
 
 ###
@@ -61,6 +61,6 @@ authorization: {{key}}
 content-type: application/json
 
 {
-    "sql": "SELECT * FROM user",
-    "clientEmail": "frodriguez@netse.com.ar"
+  "sql": "SELECT * FROM user",
+  "email": "frodriguez@netse.com.ar"
 }

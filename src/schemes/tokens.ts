@@ -1,8 +1,8 @@
 import z from 'zod'
 
 export const tokenScheme = z.object({
-  tokenName: z.string(),
-  username: z.string()
+  name: z.string(),
+  createdBy: z.string()
 })
 
 export const validateToken = (value: typeof tokenScheme) => {

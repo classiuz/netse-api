@@ -18,7 +18,7 @@ const authMiddleware = async (req: Request, res: Response, next: NextFunction) =
   const tokens = await tokenModel.getAllTokensValues()
 
   for (const token of tokens) {
-    const validKey = await bcrypt.compare(key, token.tokenValue)
+    const validKey = await bcrypt.compare(key, token.value)
     if (validKey) {
       next()
       return

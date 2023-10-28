@@ -2,14 +2,12 @@ import z from 'zod'
 import { address, coordinates } from '@/schemes/general'
 
 export const clientScheme = z.object({
-  clientId: z.number().optional(),
-  clientFirstName: z.string(),
-  clientLastName: z.string(),
-  clientDocument: z.number(),
-  clientEmail: z.string().email(),
-  clientAddress: address,
-  clientCoordinates: coordinates,
-  createdAt: z.string().optional()
+  firstName: z.string(),
+  lastName: z.string(),
+  document: z.number(),
+  email: z.string().email(),
+  address,
+  coordinates
 })
 
 export const validateClient = (value: typeof clientScheme) => {

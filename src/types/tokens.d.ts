@@ -9,7 +9,7 @@ export interface TokenObjectWithIdAndCreateAt extends TokenObject {
 }
 
 export interface TokenObjectWithIdAndCreateAtAndValue extends TokenObjectWithIdAndCreateAt {
-  tokenValue: string
+  value: string
 }
 
-export type TokenOnlyName = Pick<TokenObject, 'tokenName'>
+export type TokenOnlyName = Pick<TokenObject, 'name'>

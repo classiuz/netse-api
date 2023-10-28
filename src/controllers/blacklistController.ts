@@ -51,10 +51,10 @@ const createBlacklist = async (req: Request, res: Response) => {
     return res.status(409).json(response).end()
   }
 
-  const userExist = await usersModel.getUserByUsername({ username: result.data.addedBy })
+  const userExist = await usersModel.getUserByUsername({ username: result.data.createdBy })
 
   if (userExist.length === 0) {
-    const response = createResponse({ code: 409, message: BLACKLIST_MESSAGE.USER_DONT_EXIST(result.data.addedBy) })
+    const response = createResponse({ code: 409, message: BLACKLIST_MESSAGE.USER_DONT_EXIST(result.data.createdBy) })
     return res.status(409).json(response).end()
   }
 
@@ -76,6 +76,20 @@ const updateBlacklist = async (req: Request, res: Response) => {
     const error = zodParseError({ errors: result.error })
     const response = createResponse({ code: 400, error })
     return res.status(400).json(response).end()
+  }
+
+  if (Object.keys(result.data).length === 0) {
+    const response = createResponse({ code: 400, error: BLACKLIST_MESSAGE.EMPTY_UPDATE(clientId) })
+    return res.status(400).json(response).end()
+  }
+
+  if (result.data.createdBy !== undefined) {
+    const userExist = await usersModel.getUserByUsername({ username: result.data.createdBy })
+
+    if (userExist.length === 0) {
+      const response = createResponse({ code: 409, message: BLACKLIST_MESSAGE.USER_DONT_EXIST(result.data.createdBy) })
+      return res.status(409).json(response).end()
+    }
   }
 
   try {

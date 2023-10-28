@@ -3,9 +3,14 @@ import { type clientScheme } from '@/schemes/clients'
 
 export type ClientObject = z.infer<typeof clientScheme>
 
-export type ClientOnlyClientId = Pick<ClientObject, 'clientId'>
+export type ClientOnlyId = Pick<ClientObject, 'id'>
 
 export interface UpdateClientProps {
-  clientId: ClientObject['clientId']
+  id: ClientObject['id']
   newData: Partial<ClientObject>
+}
+
+export interface ClientReturn extends ClientObject {
+  id: number
+  createdAt: string
 }
