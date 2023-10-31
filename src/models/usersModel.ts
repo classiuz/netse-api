@@ -1,17 +1,17 @@
 import bcrypt from 'bcrypt'
 import pool from '@/config/database'
 import getDate from '@/utils/getDate'
-import type { UpdateUserProps, GetUserProps, UserObject, UserOnlyUsername, UserObjectWithIdAndCreateAt, UsersModelsGenericProps } from '@/types/user'
+import type { UpdateUserProps, GetUserProps, UserObject, UserOnlyUsername, UserReturn, UsersModelsGenericProps } from '@/types/user'
 
 const getAllUsers = async ({ querys }: UsersModelsGenericProps) => {
   const [rows] = await pool.query('SELECT id, username, email, firstName, lastName, createdAt FROM users')
-  return rows as UserObjectWithIdAndCreateAt[]
+  return rows as UserReturn[]
 }
 
 const getUserByUsername = async ({ username, selectFields = [] }: GetUserProps) => {
   const fields = ['id', 'username', 'email', 'firstName', 'lastName', 'createdAt', ...selectFields]
   const [rows] = await pool.query(`SELECT ${fields.join(', ')} FROM users WHERE username = (?)`, [username])
-  return rows as UserObjectWithIdAndCreateAt[]
+  return rows as UserReturn[]
 }
 
 const createUser = async (username: UserObject) => {

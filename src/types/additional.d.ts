@@ -5,4 +5,5 @@ export type AdditionalObject = z.infer<typeof additionalScheme>
 
 export interface AdditionalReturn extends AdditionalObject {
   id: number
+  createdAt: string
 }

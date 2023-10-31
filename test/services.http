@@ -58,7 +58,7 @@ content-type: application/json
 ###
 
 # UPDATE SERVICE - Successfully
-PATCH {{baseUrl}}/{{path}}/FTTH
+PATCH {{baseUrl}}/{{path}}/FTTH2
 authorization: {{key}}
 content-type: application/json
 

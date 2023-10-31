@@ -96,21 +96,11 @@ content-type: application/json
 | [/blacklist](#blacklist)    | `POST`        | /blacklist                    | `API Token`        | Create a new blacklist             |
 | [/blacklist](#blacklist)    | `DELETE`      | /blacklist/:clientId          | `API Token`        | Delete a blacklist by clientId     |
 | [/blacklist](#blacklist)    | `PATCH`       | /blacklist/:clientId          | `API Token`        | Update a blacklist by clientId     |
-| [/clients](#clients)        | `GET`         | /clients                      | `API Token`        | Get all clients                    |
-| [/clients](#clients)        | `GET`         | /clients/:id                  | `API Token`        | Get client by client id            |
-| [/clients](#clients)        | `POST`        | /clients                      | `API Token`        | Create a new client                |
-| [/clients](#clients)        | `DELETE`      | /clients/:id                  | `API Token`        | Delete a client by client id       |
-| [/clients](#clients)        | `PATCH`       | /clients/:id                  | `API Token`        | Update a client by client id       |
 | [/services](#services)      | `GET`         | /services                     | `API Token`        | Get all services                   |
 | [/services](#services)      | `GET`         | /services/:name               | `API Token`        | Get service by service name        |
 | [/services](#services)      | `POST`        | /services                     | `API Token`        | Create a new service               |
 | [/services](#services)      | `DELETE`      | /services/:name               | `API Token`        | Delete a service by service name   |
 | [/services](#services)      | `PATCH`       | /services/:name               | `API Token`        | Update a service by service name   |
-| [/groups](#groups)          | `GET`         | /groups                       | `API Token`        | Get all groups                     |
-| [/groups](#groups)          | `GET`         | /groups/:name                 | `API Token`        | Get group by name                  |
-| [/groups](#groups)          | `POST`        | /groups                       | `API Token`        | Create a new group                 |
-| [/groups](#groups)          | `DELETE`      | /groups/:name                 | `API Token`        | Delete a group by name             |
-| [/groups](#groups)          | `PATCH`       | /groups/:name                 | `API Token`        | Update a group by name             |
 
 ### 🔀 Routes
 
@@ -135,10 +125,6 @@ content-type: application/json
 ⌚ Developing...
 
 #### /services
-
-⌚ Developing...
-
-#### /groups
 
 ⌚ Developing...
 

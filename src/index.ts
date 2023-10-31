@@ -7,16 +7,14 @@ import corsMiddleware from '@/middlewares/corsMiddleware'
 import userRoutes from '@/routes/usersRoutes'
 import authRoutes from '@/routes/authRoutes'
 import tokenRoutes from '@/routes/tokenRoutes'
-import clientsRoutes from '@/routes/clientsRoutes'
 import blacklistRoutes from '@/routes/blacklistRoutes'
 import servicesRoutes from '@/routes/servicesRoutes'
-import groupsRoutes from '@/routes/groupsRoutes'
 import plansRoutes from '@/routes/plansRoutes'
 import additionalRoutes from '@/routes/additionalRoutes'
 
 import { PORT, ROOT_PATH } from '@/config/server'
 import { START_MESSAGE } from '@/const/messages'
-import { AUTH_PATH, USER_PATH, TOKEN_PATH, BLACKLIST_PATH, CLIENT_PATH, PLAN_PATH, SERVICE_PATH, GROUP_PATH, ADDITIONAL_PATH } from '@/const/paths'
+import { AUTH_PATH, USER_PATH, TOKEN_PATH, BLACKLIST_PATH, PLAN_PATH, SERVICE_PATH, ADDITIONAL_PATH } from '@/const/paths'
 
 import createDatabaseTables from '@/utils/createDatabaseTables'
 
@@ -30,10 +28,8 @@ app.use(express.json())
 app.use(ROOT_PATH + USER_PATH, authMiddleware, userRoutes)
 app.use(ROOT_PATH + AUTH_PATH, authMiddleware, authRoutes)
 app.use(ROOT_PATH + TOKEN_PATH, authMiddleware, tokenRoutes)
-app.use(ROOT_PATH + CLIENT_PATH, authMiddleware, clientsRoutes)
 app.use(ROOT_PATH + BLACKLIST_PATH, authMiddleware, blacklistRoutes)
 app.use(ROOT_PATH + SERVICE_PATH, authMiddleware, servicesRoutes)
-app.use(ROOT_PATH + GROUP_PATH, authMiddleware, groupsRoutes)
 app.use(ROOT_PATH + PLAN_PATH, authMiddleware, plansRoutes)
 app.use(ROOT_PATH + ADDITIONAL_PATH, authMiddleware, additionalRoutes)
 

@@ -1,9 +1,10 @@
 import usersModels from '@/models/usersModel'
-import createResponse from '@/utils/createResponse'
 import { USERS_MESSAGES } from '@/const/messages'
-import { validatePartialUser, validateUser } from '@/schemes/users'
-import zodParseError from '@/utils/zodParseError'
+import { checkUserAlreadyExits, checkIfUserExists, checkUserScheme, checkPartialUserScheme } from '@/services/usersServices'
+import handleError from '@/utils/handleError'
+import createResponse from '@/utils/createResponse'
 import type { Request, Response } from 'express'
+import { checkEmptyUpdate } from '@/services/generalServices'
 
 const getAllUsers = async (req: Request, res: Response) => {
   try {
@@ -11,84 +12,49 @@ const getAllUsers = async (req: Request, res: Response) => {
     const response = createResponse({ code: 200, data: users })
     res.status(200).json(response).end()
   } catch (error) {
-    const response = createResponse({ code: 500, error })
-    res.status(500).json(response).end()
+    handleError({ error, res })
   }
 }
 
 const getUserByUsername = async (req: Request, res: Response) => {
   const { username } = req.params
-  try {
-    const user = await usersModels.getUserByUsername({ username })
 
-    if (user.length === 0) {
-      const response = createResponse({ code: 404, message: USERS_MESSAGES.NOT_FOUND(username) })
-      return res.status(404).json(response).end()
-    }
+  try {
+    const user = await checkIfUserExists({ username })
 
     const response = createResponse({ code: 200, data: user })
     res.status(200).json(response).end()
   } catch (error) {
-    const response = createResponse({ code: 500, error })
-    res.status(500).json(response).end()
+    handleError({ error, res })
   }
 }
 
 const createUser = async (req: Request, res: Response) => {
-  const result = validateUser(req.body)
-
-  if (!result.success) {
-    const error = zodParseError({ errors: result.error })
-    const response = createResponse({ code: 400, error })
-    return res.status(400).json(response).end()
-  }
-
-  const alreadyCreated = await usersModels.getUserByUsername({ username: result.data.username })
-
-  if (alreadyCreated.length >= 1) {
-    const response = createResponse({ code: 409, message: USERS_MESSAGES.ALREADY_CREATED(result.data.username) })
-    return res.status(409).json(response).end()
-  }
-
   try {
+    const result = await checkUserScheme({ user: req.body })
+    await checkUserAlreadyExits({ username: result.data.username })
+
     await usersModels.createUser(result.data)
     const response = createResponse({ code: 201, message: USERS_MESSAGES.CREATED(result.data.username), data: [result.data] })
     res.status(201).json(response).end()
   } catch (error) {
-    const response = createResponse({ code: 500, error })
-    res.status(500).json(response).end()
+    handleError({ error, res })
   }
 }
 
 const updateUser = async (req: Request, res: Response) => {
   const { username } = req.params
-  const result = validatePartialUser(req.body)
-
-  if (!result.success) {
-    const error = zodParseError({ errors: result.error })
-    const response = createResponse({ code: 400, error })
-    return res.status(400).json(response).end()
-  }
-
-  if (Object.keys(result.data).length === 0) {
-    const response = createResponse({ code: 400, error: USERS_MESSAGES.EMPTY_UPDATE(username) })
-    return res.status(400).json(response).end()
-  }
 
   try {
-    const user = await usersModels.getUserByUsername({ username })
-
-    if (user.length === 0) {
-      const response = createResponse({ code: 404, message: USERS_MESSAGES.NOT_FOUND(username) })
-      return res.status(404).json(response).end()
-    }
+    const result = await checkPartialUserScheme({ user: req.body })
+    await checkIfUserExists({ username })
+    await checkEmptyUpdate({ data: result.data, message: USERS_MESSAGES.EMPTY_UPDATE(username) })
 
     await usersModels.updateUser({ username, newData: result.data })
     const response = createResponse({ code: 200, message: USERS_MESSAGES.UPDATE(username), data: [result.data] })
     res.status(200).json(response).end()
   } catch (error) {
-    const response = createResponse({ code: 500, error })
-    res.status(500).json(response).end()
+    handleError({ error, res })
   }
 }
 
@@ -96,19 +62,13 @@ const deleteUser = async (req: Request, res: Response) => {
   const { username } = req.params
 
   try {
-    const user = await usersModels.getUserByUsername({ username })
-
-    if (user.length === 0) {
-      const response = createResponse({ code: 404, message: USERS_MESSAGES.NOT_FOUND(username) })
-      return res.status(404).json(response).end()
-    }
+    const user = await checkIfUserExists({ username })
 
     await usersModels.deleteUser({ username: user[0].username })
     const response = createResponse({ code: 200, message: USERS_MESSAGES.DELETE(user[0].username) })
     res.status(200).json(response).end()
   } catch (error) {
-    const response = createResponse({ code: 500, error })
-    res.status(500).json(response).end()
+    handleError({ error, res })
   }
 }
 

@@ -1,10 +1,6 @@
-import { type ZodError } from 'zod'
+import type { ParseOptions, ParseReturn } from '@/types/error'
 
-interface ZodParseErrorProps<Scheme> {
-  errors: ZodError<Scheme>
-}
-
-const zodParseError = <Scheme>({ errors }: ZodParseErrorProps<Scheme>) => {
+const zodParseError = <Scheme>({ errors }: ParseOptions<Scheme>): ParseReturn[] => {
   const { issues } = errors
   return issues.map((current) => {
     const type = current.code.toUpperCase()

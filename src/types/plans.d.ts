@@ -5,4 +5,5 @@ export type PlanObject = z.infer<typeof plansScheme>
 
 export interface PlanReturn extends PlanObject {
   id: number
+  createdAt: string
 }

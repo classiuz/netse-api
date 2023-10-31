@@ -3,7 +3,8 @@ import z from 'zod'
 export const additionalScheme = z.object({
   name: z.string(),
   price: z.string(),
-  group: z.string()
+  service: z.string(),
+  createdBy: z.string()
 })
 
 export const validatePlan = (value: typeof additionalScheme) => {
