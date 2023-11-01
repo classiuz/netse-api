@@ -1,10 +1,11 @@
 import usersModels from '@/models/usersModel'
 import { USERS_MESSAGES } from '@/const/messages'
-import { checkUserAlreadyExits, checkIfUserExists, checkUserScheme, checkPartialUserScheme } from '@/services/usersServices'
+import { userAlreadyExits, userExists } from '@/services/usersServices'
 import handleError from '@/utils/handleError'
 import createResponse from '@/utils/createResponse'
 import type { Request, Response } from 'express'
-import { checkEmptyUpdate } from '@/services/generalServices'
+import { emptyUpdate } from '@/services/generalServices'
+import { validatePartialUser, validateUser } from '@/schemes/users'
 
 const getAllUsers = async (req: Request, res: Response) => {
   try {
@@ -20,7 +21,7 @@ const getUserByUsername = async (req: Request, res: Response) => {
   const { username } = req.params
 
   try {
-    const user = await checkIfUserExists({ username })
+    const user = await userExists({ username })
 
     const response = createResponse({ code: 200, data: user })
     res.status(200).json(response).end()
@@ -31,8 +32,8 @@ const getUserByUsername = async (req: Request, res: Response) => {
 
 const createUser = async (req: Request, res: Response) => {
   try {
-    const result = await checkUserScheme({ user: req.body })
-    await checkUserAlreadyExits({ username: result.data.username })
+    const result = validateUser(req.body)
+    await userAlreadyExits({ username: result.data.username })
 
     await usersModels.createUser(result.data)
     const response = createResponse({ code: 201, message: USERS_MESSAGES.CREATED(result.data.username), data: [result.data] })
@@ -46,9 +47,13 @@ const updateUser = async (req: Request, res: Response) => {
   const { username } = req.params
 
   try {
-    const result = await checkPartialUserScheme({ user: req.body })
-    await checkIfUserExists({ username })
-    await checkEmptyUpdate({ data: result.data, message: USERS_MESSAGES.EMPTY_UPDATE(username) })
+    const result = validatePartialUser(req.body)
+    await emptyUpdate({ data: result.data, message: USERS_MESSAGES.EMPTY_UPDATE(username) })
+    await userExists({ username })
+
+    if (result.data.username !== undefined) {
+      await userAlreadyExits({ username: result.data.username })
+    }
 
     await usersModels.updateUser({ username, newData: result.data })
     const response = createResponse({ code: 200, message: USERS_MESSAGES.UPDATE(username), data: [result.data] })
@@ -62,7 +67,7 @@ const deleteUser = async (req: Request, res: Response) => {
   const { username } = req.params
 
   try {
-    const user = await checkIfUserExists({ username })
+    const user = await userExists({ username })
 
     await usersModels.deleteUser({ username: user[0].username })
     const response = createResponse({ code: 200, message: USERS_MESSAGES.DELETE(user[0].username) })

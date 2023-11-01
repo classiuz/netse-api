@@ -1,25 +1,43 @@
 import pool from '@/config/database'
-import type { AdditionalReturn } from '@/types/additional'
+import getDate from '@/utils/getDate'
+import type { AdditionalObject, AdditionalOnlyName, AdditionalReturn, AdditionalUpdateProps } from '@/types/additional'
 
 const getAllAdditionals = async () => {
-  const [rows] = await pool.query('SELECT id, name, price, group FROM additionals')
+  const [rows] = await pool.query('SELECT * FROM additionals')
   return rows as AdditionalReturn[]
 }
 
-const getAdditionalByName = async () => {
-
+const getAdditionalByName = async ({ name }: AdditionalOnlyName) => {
+  const [rows] = await pool.query('SELECT * FROM additionals WHERE name = ?', [name])
+  return rows as AdditionalReturn[]
 }
 
-const createAdditional = async () => {
+const createAdditional = async ({ name, price, installmentsPrice, service, createdBy }: AdditionalObject) => {
+  const date = getDate()
 
+  try {
+    await pool.query('INSERT INTO additionals (name, price, installmentsPrice, service, createdBy, createdAt) VALUES (?, ?, ?, ?, ?, ?)',
+      [name, price, JSON.stringify(installmentsPrice), service, createdBy, date]
+    )
+  } catch (error) {
+    throw error
+  }
 }
 
-const updateAdditional = async () => {
-
+const updateAdditional = async ({ newData, name }: AdditionalUpdateProps) => {
+  try {
+    await pool.query('UPDATE additionals SET ? WHERE name = ?', [newData, name])
+  } catch (error) {
+    throw error
+  }
 }
 
-const deleteAdditional = async () => {
-
+const deleteAdditional = async ({ name }: AdditionalOnlyName) => {
+  try {
+    await pool.query('DELETE FROM additionals WHERE (name) = (?)', [name])
+  } catch (error) {
+    throw error
+  }
 }
 
 export default {

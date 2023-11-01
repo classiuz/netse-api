@@ -1,4 +1,6 @@
 import z from 'zod'
+import { ValidationError } from '@/errors/validationError'
+import zodParseError from '@/utils/zodParseError'
 
 export const tokenScheme = z.object({
   name: z.string(),
@@ -6,9 +8,12 @@ export const tokenScheme = z.object({
 })
 
 export const validateToken = (value: typeof tokenScheme) => {
-  return tokenScheme.safeParse(value)
-}
+  const result = tokenScheme.safeParse(value)
 
-export const validatePartialToken = (value: typeof tokenScheme) => {
-  return tokenScheme.partial().safeParse(value)
+  if (!result.success) {
+    const error = zodParseError({ errors: result.error })
+    throw new ValidationError({ status: 400, error })
+  }
+
+  return result
 }

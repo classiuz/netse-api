@@ -1,4 +1,6 @@
 import z from 'zod'
+import zodParseError from '@/utils/zodParseError'
+import { ValidationError } from '@/errors/validationError'
 
 export const usersScheme = z.object({
   username: z.string(),
@@ -9,9 +11,23 @@ export const usersScheme = z.object({
 })
 
 export const validateUser = (value: typeof usersScheme) => {
-  return usersScheme.safeParse(value)
+  const result = usersScheme.safeParse(value)
+
+  if (!result.success) {
+    const error = zodParseError({ errors: result.error })
+    throw new ValidationError({ status: 400, error })
+  }
+
+  return result
 }
 
 export const validatePartialUser = (value: typeof usersScheme) => {
-  return usersScheme.partial().safeParse(value)
+  const result = usersScheme.partial().safeParse(value)
+
+  if (!result.success) {
+    const error = zodParseError({ errors: result.error })
+    throw new ValidationError({ status: 400, error })
+  }
+
+  return result
 }

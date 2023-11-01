@@ -101,6 +101,11 @@ content-type: application/json
 | [/services](#services)      | `POST`        | /services                     | `API Token`        | Create a new service               |
 | [/services](#services)      | `DELETE`      | /services/:name               | `API Token`        | Delete a service by service name   |
 | [/services](#services)      | `PATCH`       | /services/:name               | `API Token`        | Update a service by service name   |
+| [/plans](#plans)            | `GET`         | /plans                        | `API Token`        | Get all plans                      |
+| [/plans](#plans)            | `GET`         | /plans/:name                  | `API Token`        | Get plan by plan name              |
+| [/plans](#plans)            | `POST`        | /plans                        | `API Token`        | Create a new plan                  |
+| [/plans](#plans)            | `DELETE`      | /plans/:name                  | `API Token`        | Delete a plan by plan name         |
+| [/plans](#plans)            | `PATCH`       | /plans/:name                  | `API Token`        | Update a plan by ´ñam name         |
 
 ### 🔀 Routes
 
@@ -125,6 +130,10 @@ content-type: application/json
 ⌚ Developing...
 
 #### /services
+
+⌚ Developing...
+
+#### /plans
 
 ⌚ Developing...
 

@@ -4,7 +4,7 @@ import createResponse from '@/utils/createResponse'
 import handleError from '@/utils/handleError'
 import { GENERAL_MESSAGES } from '@/const/messages'
 import { SECRET_KEY } from '@/config/environment'
-import { checkIfUserExists } from '@/services/usersServices'
+import { userExists } from '@/services/usersServices'
 import type { Request, Response } from 'express'
 
 const authUser = async (req: Request, res: Response) => {
@@ -16,7 +16,7 @@ const authUser = async (req: Request, res: Response) => {
   }
 
   try {
-    const user = await checkIfUserExists({ username })
+    const user = await userExists({ username })
 
     const isPasswordCorrect = await bcrypt.compare(password, user[0].password)
     if (!isPasswordCorrect) {

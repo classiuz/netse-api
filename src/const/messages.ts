@@ -20,16 +20,6 @@ export const USERS_MESSAGES = {
   DELETE: (username: string) => `The user ${username} was delete successfully.`
 }
 
-export const CLIENT_MESSAGE = {
-  NOT_FOUND: (id: string) => `The client with id ${id} was not found.`,
-  CREATED: (clientName: string) => `Client ${clientName} was created successfully.`,
-  EMPTY_UPDATE: (id: string) => `To update the client with id ${id} is necessary to provide some data.`,
-  ALREADY_CREATED: (id: string | number) => `Client with id ${id} was already created.`,
-  CLIENT_DONT_EXIST: (id: string | number) => `The client ${id} not exist.`,
-  UPDATE: (id: string | number) => `The client with id ${id} was update correctly.`,
-  DELETE: (id: number | undefined | null) => `The client with id ${id} was delete successfully.`
-}
-
 export const BLACKLIST_MESSAGE = {
   NOT_FOUND: (clientId: string) => `The blacklist with the client ${clientId} was not found.`,
   CREATED: (clientId: string) => `BlackList client id ${clientId} was created successfully.`,
@@ -48,23 +38,34 @@ export const TOKEN_MESSAGE = {
   DELETE: (name: string) => `The Token ${name} was delete successfully.`
 }
 
-export const GROUPS_MESSAGE = {
-  CREATED: (name: string) => `Group ${name} was created successfully.`,
-  NOT_FOUND: (name: string) => `The group ${name} was not found.`,
-  ALREADY_CREATED: (name: string) => `The group ${name} was already created.`,
-  EMPTY_UPDATE: (name: string) => `To update ${name} is necessary to provide some data.`,
-  UPDATE: (name: string) => `The group ${name} was update correctly.`,
-  DELETE: (name: string) => `The group ${name} was delete successfully.`
-}
-
 export const SERVICES_MESSAGE = {
   CREATED: (name: string) => `The service ${name} was created successfully.`,
   NOT_FOUND: (name: string) => `Service ${name} was not found.`,
   ALREADY_CREATED: (name: string) => `Service ${name} was already created.`,
   USER_DONT_EXIST: (username: string) => `The user ${username} not exist.`,
-  EMPTY_UPDATE: (name: string) => `To update ${name} is necessary to provide some data.`,
+  EMPTY_UPDATE: (name: string) => `To update ${name} service is necessary to provide some data.`,
   UPDATE: (name: string) => `The service ${name} was update correctly.`,
   DELETE: (name: string) => `The service ${name} was delete successfully.`
+}
+
+export const PLANS_MESSAGE = {
+  CREATED: (name: string) => `The plan ${name} was created successfully.`,
+  NOT_FOUND: (name: string) => `Plan ${name} was not found.`,
+  ALREADY_CREATED: (name: string) => `Plan ${name} was already created.`,
+  USER_DONT_EXIST: (username: string) => `The user ${username} not exist.`,
+  EMPTY_UPDATE: (name: string) => `To update ${name} plan is necessary to provide some data.`,
+  UPDATE: (name: string) => `The plan ${name} was update correctly.`,
+  DELETE: (name: string) => `The plan ${name} was delete successfully.`
+}
+
+export const ADDITIONAL_MESSAGE = {
+  CREATED: (name: string) => `The additional ${name} was created successfully.`,
+  NOT_FOUND: (name: string) => `Additional ${name} was not found.`,
+  ALREADY_CREATED: (name: string) => `Additional ${name} was already created.`,
+  USER_DONT_EXIST: (username: string) => `The user ${username} not exist.`,
+  EMPTY_UPDATE: (name: string) => `To update ${name} additional is necessary to provide some data.`,
+  UPDATE: (name: string) => `The additional ${name} was update correctly.`,
+  DELETE: (name: string) => `The additional ${name} was delete successfully.`
 }
 
 export const AUTH_MESSAGE = {

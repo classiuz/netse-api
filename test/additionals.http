@@ -1,0 +1,77 @@
+# For Testing read README.md Test section
+@baseUrl = {{$dotenv URL}}:{{$dotenv PORT}}{{$dotenv ROOT_PATH}}
+@key = {{$dotenv API_KEY}}
+@path = additionals
+
+# GET ALL additionals
+GET {{baseUrl}}/{{path}}?key={{key}}
+
+###
+
+# CREATE ADDITIONAL - Failed
+POST {{baseUrl}}/{{path}}
+content-type: application/json
+
+{
+  "key": "{{key}}",
+  "name": "Reposición Router Salta",
+  "service": "FTTH",
+  "createdBy": "Carlos"
+}
+
+###
+
+# CREATE ADDITIONAL - Successfully
+POST {{baseUrl}}/{{path}}
+authorization: {{key}}
+content-type: application/json
+
+{
+  "key": "{{key}}",
+  "name": "Reposición Antena Salta",
+  "installmentsPrice": {
+    "quantity": 5,
+    "price": 10000
+  },
+  "price": 50000,
+  "service": "FTTH",
+  "createdBy": "frodriguez"
+}
+
+###
+
+# GET ADDITIONAL BY NAME
+GET {{baseUrl}}/{{path}}/Reposición Antena Salta
+authorization: {{key}}
+
+###
+
+# DELETE ADDITIONAL
+DELETE {{baseUrl}}/{{path}}/Reposición Router Salta
+authorization: {{key}}
+
+###
+
+# UPDTATE A ADDITIONAL - Failed
+PATCH {{baseUrl}}/{{path}}/Reposición Antena Salta
+authorization: {{key}}
+content-type: application/json
+
+{
+  "sql": "SELECT * FROM user",
+  "price": 7300,
+  "service": "Servicio no existente"
+}
+
+###
+
+# UPDATE ADDITIONAL - Successfully
+PATCH {{baseUrl}}/{{path}}/Reposición Antena Salta
+authorization: {{key}}
+content-type: application/json
+
+{
+  "name": "Reposición Antena Salta",
+  "price": 6000,
+  "createdBy": "frodriguez"
+}

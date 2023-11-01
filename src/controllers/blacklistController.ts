@@ -1,8 +1,9 @@
 import { BLACKLIST_MESSAGE } from '@/const/messages'
 import blacklistModel from '@/models/blacklistModel'
-import { checkIfBlacklistExists, checkBlacklistAlreadyExists, checkBlackistScheme, checkPartialBlacklistScheme } from '@/services/blacklistServices'
-import { checkEmptyUpdate } from '@/services/generalServices'
-import { checkIfUserExists } from '@/services/usersServices'
+import { validateBlacklist, validatePartialBlacklist } from '@/schemes/blacklist'
+import { blacklistExists, blacklistAlreadyExists } from '@/services/blacklistServices'
+import { emptyUpdate } from '@/services/generalServices'
+import { userExists } from '@/services/usersServices'
 import createResponse from '@/utils/createResponse'
 import handleError from '@/utils/handleError'
 import type { Request, Response } from 'express'
@@ -20,7 +21,7 @@ const getAllBlacklist = async (req: Request, res: Response) => {
 const getBlacklistById = async (req: Request, res: Response) => {
   const { clientId } = req.params
   try {
-    const data = await checkIfBlacklistExists({ clientId })
+    const data = await blacklistExists({ clientId })
 
     const response = createResponse({ code: 200, data })
     res.status(200).json(response).end()
@@ -31,9 +32,9 @@ const getBlacklistById = async (req: Request, res: Response) => {
 
 const createBlacklist = async (req: Request, res: Response) => {
   try {
-    const result = await checkBlackistScheme({ blacklist: req.body })
-    await checkBlacklistAlreadyExists({ clientId: result.data.clientId })
-    await checkIfUserExists({ username: result.data.createdBy })
+    const result = validateBlacklist(req.body)
+    await blacklistAlreadyExists({ clientId: result.data.clientId })
+    await userExists({ username: result.data.createdBy })
 
     await blacklistModel.createBlacklist(result.data)
     const response = createResponse({ code: 201, message: BLACKLIST_MESSAGE.CREATED(result.data.clientId), data: [result.data] })
@@ -46,12 +47,16 @@ const createBlacklist = async (req: Request, res: Response) => {
 const updateBlacklist = async (req: Request, res: Response) => {
   const { clientId } = req.params
   try {
-    const result = await checkPartialBlacklistScheme({ blacklist: req.body })
-    await checkEmptyUpdate({ data: result.data, message: BLACKLIST_MESSAGE.EMPTY_UPDATE(clientId) })
-    await checkIfBlacklistExists({ clientId })
+    const result = validatePartialBlacklist(req.body)
+    await emptyUpdate({ data: result.data, message: BLACKLIST_MESSAGE.EMPTY_UPDATE(clientId) })
+    await blacklistExists({ clientId })
+
+    if (result.data.clientId !== undefined) {
+      await blacklistAlreadyExists({ clientId: result.data.clientId })
+    }
 
     if (result.data.createdBy !== undefined) {
-      await checkIfUserExists({ username: result.data.createdBy })
+      await userExists({ username: result.data.createdBy })
     }
 
     await blacklistModel.updateBlacklist({ clientId, newData: result.data })
@@ -66,7 +71,7 @@ const deleteBlacklist = async (req: Request, res: Response) => {
   const { clientId } = req.params
 
   try {
-    const blacklist = await checkIfBlacklistExists({ clientId })
+    const blacklist = await blacklistExists({ clientId })
 
     await blacklistModel.deleteBlacklist({ clientId: blacklist[0].clientId })
     const response = createResponse({ code: 200, message: BLACKLIST_MESSAGE.DELETE(blacklist[0].clientId) })

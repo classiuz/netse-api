@@ -1,0 +1,78 @@
+# For Testing read README.md Test section
+@baseUrl = {{$dotenv URL}}:{{$dotenv PORT}}{{$dotenv ROOT_PATH}}
+@key = {{$dotenv API_KEY}}
+@path = plans
+
+# GET ALL PLANS
+GET {{baseUrl}}/{{path}}?key={{key}}
+
+###
+
+# CREATE PLAN - Failed
+POST {{baseUrl}}/{{path}}
+content-type: application/json
+
+{
+  "key": "{{key}}",
+  "name": "Neuquén",
+  "download": 10,
+  "upload": 2,
+  "price": 4500,
+  "service": "Satelital",
+  "createdBy": "frodriguez"
+}
+
+###
+
+# CREATE PLAN - Successfully
+POST {{baseUrl}}/{{path}}
+authorization: {{key}}
+content-type: application/json
+
+{
+  "key": "{{key}}",
+  "name": "Salta 20 Mbps",
+  "download": 20,
+  "upload": 4,
+  "price": 8500,
+  "service": "FTTH",
+  "createdBy": "frodriguez"
+}
+
+###
+
+# GET PLAN BY NAME
+GET {{baseUrl}}/{{path}}/Neuquen 10 mbps
+authorization: {{key}}
+
+###
+
+# DELETE PLAN
+DELETE {{baseUrl}}/{{path}}/Neuquen 10 mbps
+authorization: {{key}}
+
+###
+
+# UPDTATE A PLAN - Failed
+PATCH {{baseUrl}}/{{path}}/Neuquen 10 mbps
+authorization: {{key}}
+content-type: application/json
+
+{
+  "sql": "SELECT * FROM user",
+  "price": 7300,
+  "service": "Servicio no existente"
+}
+
+###
+
+# UPDATE PLAN - Successfully
+PATCH {{baseUrl}}/{{path}}/salta 10 mbps
+authorization: {{key}}
+content-type: application/json
+
+{
+  "name": "Salta 10 Mbps",
+  "price": 9000,
+  "createdBy": "frodriguez"
+}

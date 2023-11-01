@@ -12,8 +12,9 @@ const createCoverageAreasTable = async () => {
       \`province\` VARCHAR(100) NOT NULL,
       \`service\` VARCHAR(100) NOT NULL,
       FOREIGN KEY (\`service\`) REFERENCES \`services\`(\`name\`),
-      \`plansId\` JSON NOT NULL,
-      \`additionalsId\` JSON NOT NULL,
+      \`plansName\` JSON NOT NULL,
+      \`additionalsName\` JSON NOT NULL,
+      \`location\` JSON NOT NULL,
       \`range\` JSON NOT NULL,
       \`createdBy\` VARCHAR(100) NOT NULL,
       FOREIGN KEY (\`createdBy\`) REFERENCES \`users\`(\`username\`),
@@ -26,8 +27,9 @@ const createAdditionalsTable = async () => {
   await pool.query(`
     CREATE TABLE IF NOT EXISTS \`additionals\` (
       \`id\` INT PRIMARY KEY AUTO_INCREMENT,
-      \`name\` VARCHAR(300) NOT NULL UNIQUE,
+      \`name\` VARCHAR(100) NOT NULL UNIQUE,
       \`price\` DECIMAL(12, 2) NOT NULL,
+      \`installmentsPrice\` JSON,
       \`service\` VARCHAR(100) NOT NULL,
       FOREIGN KEY (\`service\`) REFERENCES \`services\`(\`name\`),
       \`createdBy\` VARCHAR(100) NOT NULL,
@@ -41,7 +43,9 @@ const createPlansTable = async () => {
   await pool.query(`
     CREATE TABLE IF NOT EXISTS \`plans\` (
       \`id\` INT PRIMARY KEY AUTO_INCREMENT,
-      \`name\` VARCHAR(300) NOT NULL UNIQUE,
+      \`name\` VARCHAR(100) NOT NULL UNIQUE,
+      \`download\` INT NOT NULL,
+      \`upload\` INT NOT NULL,
       \`price\` DECIMAL(12, 2) NOT NULL,
       \`service\` VARCHAR(100) NOT NULL,
       FOREIGN KEY (\`service\`) REFERENCES \`services\`(\`name\`),

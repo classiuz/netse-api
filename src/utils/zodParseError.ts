@@ -4,7 +4,7 @@ const zodParseError = <Scheme>({ errors }: ParseOptions<Scheme>): ParseReturn[] 
   const { issues } = errors
   return issues.map((current) => {
     const type = current.code.toUpperCase()
-    const fields = current.path.join(', ')
+    const fields = current.path.join(' > ')
 
     if (current.code === 'invalid_type') {
       return {
