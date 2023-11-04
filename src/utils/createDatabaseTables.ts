@@ -2,20 +2,46 @@ import pool from '@/config/database'
 
 // This file creates all database tables if they do not exist when called.
 // It is important to create the Tables in the following order to use the relationships between them.
-// users -> services -> plans, additionals -> coverageAreas -> others
+// users -> services -> plans, additionals -> sales, services-areas -> others
 
-const createCoverageAreasTable = async () => {
+const createSalesTable = async () => {
   await pool.query(`
-    CREATE TABLE IF NOT EXISTS \`coverageAreas\` (
+    CREATE TABLE IF NOT EXISTS \`sales\` (
+      \`id\` INT PRIMARY KEY AUTO_INCREMENT,
+      \`firstName\` VARCHAR(250) NOT NULL,
+      \`lastName\` VARCHAR(250) NOT NULL,
+      \`document\` VARCHAR(15) NOT NULL,
+      \`phone\` VARCHAR(15) NOT NULL,
+      \`alternativePhone\` VARCHAR(15),
+      \`email\` VARCHAR(300),
+      \`address\` JSON NOT NULL,
+      \`coordinates\` JSON NOT NULL,
+      \`service\` VARCHAR(100) NOT NULL,
+      FOREIGN KEY (\`service\`) REFERENCES \`services\`(\`name\`),
+      \`plan\` VARCHAR(100) NOT NULL,
+      FOREIGN KEY (\`plan\`) REFERENCES \`plans\`(\`name\`),
+      \`notes\` TEXT,
+      \`status\` VARCHAR(100) NOT NULL,
+      \`createdBy\` VARCHAR(100) NOT NULL,
+      FOREIGN KEY (\`createdBy\`) REFERENCES \`users\`(\`username\`),
+      \`createdAt\` DATETIME NOT NULL
+    )
+  `)
+}
+
+const createServiceAreasTable = async () => {
+  await pool.query(`
+    CREATE TABLE IF NOT EXISTS \`services-areas\` (
       \`id\` INT PRIMARY KEY AUTO_INCREMENT,
       \`name\` VARCHAR(300) NOT NULL UNIQUE,
       \`province\` VARCHAR(100) NOT NULL,
       \`service\` VARCHAR(100) NOT NULL,
       FOREIGN KEY (\`service\`) REFERENCES \`services\`(\`name\`),
-      \`plansName\` JSON NOT NULL,
-      \`additionalsName\` JSON NOT NULL,
+      \`plans\` JSON NOT NULL,
+      \`additionals\` JSON NOT NULL,
       \`location\` JSON NOT NULL,
       \`range\` JSON NOT NULL,
+      \`monitoringId\` VARCHAR(100) NOT NULL,
       \`createdBy\` VARCHAR(100) NOT NULL,
       FOREIGN KEY (\`createdBy\`) REFERENCES \`users\`(\`username\`),
       \`createdAt\` VARCHAR(25) NOT NULL
@@ -139,5 +165,7 @@ export default () => {
 
   void createPlansTable() // services, users Tables required.
 
-  void createCoverageAreasTable() // services, plans, additionals, users Tables required.
+  void createSalesTable() // services, plans, users Tables required.
+
+  void createServiceAreasTable() // services, plans, additionals, users Tables required.
 }

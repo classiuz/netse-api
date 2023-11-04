@@ -80,32 +80,47 @@ content-type: application/json
 
 ### 🧮 Endpoints Table
 
-| Route                       | Method        | Endpoint                      | Authentication     | Description                        |
-| -------------               | ------------- | -------------                 | -------------      | -------------                      |
-| [/users](#users)            | `GET`         | /users                        | `API Token`        | Get all users                      |
-| [/users](#users)            | `GET`         | /users/:username              | `API Token`        | Get user by username               |
-| [/users](#users)            | `POST`        | /users                        | `API Token`        | Create a new user                  |
-| [/users](#users)            | `DELETE`      | /users/:username              | `API Token`        | Delete a user by username          |
-| [/users](#users)            | `PATCH`       | /users/:username              | `API Token`        | Update a user by username          |
-| [/tokens](#tokens)          | `GET`         | /tokens                       | `API Token`        | Get all tokens                     |
-| [/tokens](#tokens)          | `POST`        | /tokens                       | `API Token`        | Create a new token                 |
-| [/tokens](#tokens)          | `DELETE`      | /tokens/:name                 | `API Token`        | Delete a token by token name       |
-| [/auth](#auth)              | `GET`         | /auth                         | `API Token`        | Validate user authentication       |
-| [/blacklist](#blacklist)    | `GET`         | /blacklist                    | `API Token`        | Get all blacklist                  |
-| [/blacklist](#blacklist)    | `GET`         | /blacklist/:clientId          | `API Token`        | Get blacklist by clientId          |
-| [/blacklist](#blacklist)    | `POST`        | /blacklist                    | `API Token`        | Create a new blacklist             |
-| [/blacklist](#blacklist)    | `DELETE`      | /blacklist/:clientId          | `API Token`        | Delete a blacklist by clientId     |
-| [/blacklist](#blacklist)    | `PATCH`       | /blacklist/:clientId          | `API Token`        | Update a blacklist by clientId     |
-| [/services](#services)      | `GET`         | /services                     | `API Token`        | Get all services                   |
-| [/services](#services)      | `GET`         | /services/:name               | `API Token`        | Get service by service name        |
-| [/services](#services)      | `POST`        | /services                     | `API Token`        | Create a new service               |
-| [/services](#services)      | `DELETE`      | /services/:name               | `API Token`        | Delete a service by service name   |
-| [/services](#services)      | `PATCH`       | /services/:name               | `API Token`        | Update a service by service name   |
-| [/plans](#plans)            | `GET`         | /plans                        | `API Token`        | Get all plans                      |
-| [/plans](#plans)            | `GET`         | /plans/:name                  | `API Token`        | Get plan by plan name              |
-| [/plans](#plans)            | `POST`        | /plans                        | `API Token`        | Create a new plan                  |
-| [/plans](#plans)            | `DELETE`      | /plans/:name                  | `API Token`        | Delete a plan by plan name         |
-| [/plans](#plans)            | `PATCH`       | /plans/:name                  | `API Token`        | Update a plan by ´ñam name         |
+| Route                                   | Method        | Endpoint                      | Authentication     | Description                                        |
+| -------------                           | ------------- | -------------                 | -------------      | -------------                                      |
+| [/users](#users)                        | `GET`         | /users                        | `API Token`        | Get all users                                      |
+| [/users](#users)                        | `GET`         | /users/:username              | `API Token`        | Get user by username                               |
+| [/users](#users)                        | `POST`        | /users                        | `API Token`        | Create a new user                                  |
+| [/users](#users)                        | `DELETE`      | /users/:username              | `API Token`        | Delete a user by username                          |
+| [/users](#users)                        | `PATCH`       | /users/:username              | `API Token`        | Update a user by username                          |
+| [/tokens](#tokens)                      | `GET`         | /tokens                       | `API Token`        | Get all tokens                                     |
+| [/tokens](#tokens)                      | `POST`        | /tokens                       | `API Token`        | Create a new token                                 |
+| [/tokens](#tokens)                      | `DELETE`      | /tokens/:name                 | `API Token`        | Delete a token by token name                       |
+| [/auth](#auth)                          | `GET`         | /auth                         | `API Token`        | Validate user authentication                       |
+| [/blacklist](#blacklist)                | `GET`         | /blacklist                    | `API Token`        | Get all blacklist                                  |
+| [/blacklist](#blacklist)                | `GET`         | /blacklist/:clientId          | `API Token`        | Get blacklist by clientId                          |
+| [/blacklist](#blacklist)                | `POST`        | /blacklist                    | `API Token`        | Create a new blacklist                             |
+| [/blacklist](#blacklist)                | `DELETE`      | /blacklist/:clientId          | `API Token`        | Delete a blacklist by clientId                     |
+| [/blacklist](#blacklist)                | `PATCH`       | /blacklist/:clientId          | `API Token`        | Update a blacklist by clientId                     |
+| [/services](#services)                  | `GET`         | /services                     | `API Token`        | Get all services                                   |
+| [/services](#services)                  | `GET`         | /services/:name               | `API Token`        | Get service by name                                |
+| [/services](#services)                  | `POST`        | /services                     | `API Token`        | Create a new service                               |
+| [/services](#services)                  | `DELETE`      | /services/:name               | `API Token`        | Delete a service by name                           |
+| [/services](#services)                  | `PATCH`       | /services/:name               | `API Token`        | Update a service by name                           |
+| [/plans](#plans)                        | `GET`         | /plans                        | `API Token`        | Get all plans                                      |
+| [/plans](#plans)                        | `GET`         | /plans/:name                  | `API Token`        | Get plan by name                                   |
+| [/plans](#plans)                        | `POST`        | /plans                        | `API Token`        | Create a new plan                                  |
+| [/plans](#plans)                        | `DELETE`      | /plans/:name                  | `API Token`        | Delete a plan by name                              |
+| [/plans](#plans)                        | `PATCH`       | /plans/:name                  | `API Token`        | Update a plan by name                              |
+| [/additionals](#additionals)            | `GET`         | /additionals                  | `API Token`        | Get all additionals                                |
+| [/additionals](#additionals)            | `GET`         | /additionals/:name            | `API Token`        | Get additional by name                             |
+| [/additionals](#additionals)            | `POST`        | /additionals                  | `API Token`        | Create a new                                       |
+| [/additionals](#additionals)            | `DELETE`      | /additionals/:name            | `API Token`        | Delete a additional by name                        |
+| [/additionals](#additionals)            | `PATCH`       | /additionals/:name            | `API Token`        | Update a additional by name                        |
+| [/services-areas](#services-areas)      | `GET`         | /services-areas               | `API Token`        | Get all services areas                             |
+| [/services-areas](#services-areas)      | `GET`         | /services-areas/:name         | `API Token`        | Get services arreas by name                        |
+| [/services-areas](#services-areas)      | `POST`        | /services-areas               | `API Token`        | Create a new services areas                        |
+| [/services-areas](#services-areas)      | `DELETE`      | /services-areas/:name         | `API Token`        | Delete a services areas by name                    |
+| [/services-areas](#services-areas)      | `PATCH`       | /services-areas/:name         | `API Token`        | Update a services areas by name                    |
+| [/sales](#sales)                        | `GET`         | /sales                        | `API Token`        | Get all sales                                      |
+| [/sales](#sales)                        | `GET`         | /sales/:id                    | `API Token`        | Get sale by id                                     |
+| [/sales](#sales)                        | `POST`        | /sales                        | `API Token`        | Create a new sale                                  |
+| [/sales](#sales)                        | `DELETE`      | /sales/:id                    | `API Token`        | Delete a sale by id                                |
+| [/sales](#sales)                        | `PATCH`       | /sales/:id                    | `API Token`        | Update a sale by id                                |
 
 ### 🔀 Routes
 
@@ -134,6 +149,10 @@ content-type: application/json
 ⌚ Developing...
 
 #### /plans
+
+⌚ Developing...
+
+#### /additionals
 
 ⌚ Developing...
 

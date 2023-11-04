@@ -68,6 +68,26 @@ export const ADDITIONAL_MESSAGE = {
   DELETE: (name: string) => `The additional ${name} was delete successfully.`
 }
 
+export const SERVICES_AREAS_MESSAGE = {
+  CREATED: (name: string) => `The service area ${name} was created successfully.`,
+  NOT_FOUND: (name: string) => `Service area ${name} was not found.`,
+  ALREADY_CREATED: (name: string) => `Service area ${name} was already created.`,
+  USER_DONT_EXIST: (username: string) => `The user ${username} not exist.`,
+  EMPTY_UPDATE: (name: string) => `To update ${name} service area is necessary to provide some data.`,
+  UPDATE: (name: string) => `The service area ${name} was update correctly.`,
+  DELETE: (name: string) => `The service area ${name} was delete successfully.`
+}
+
+export const SALES_MESSAGE = {
+  CREATED: (salesName: string) => `The sales name ${salesName} was created successfully.`,
+  NOT_FOUND: (id: number) => `Sales with id ${id} was not found.`,
+  ALREADY_CREATED: (document: string) => `Sales with document ${document} was already created.`,
+  USER_DONT_EXIST: (username: string) => `The user ${username} not exist.`,
+  EMPTY_UPDATE: (id: string) => `To update sale id ${id} area is necessary to provide some data.`,
+  UPDATE: (salesName: string) => `Sales name ${salesName} was update correctly.`,
+  DELETE: (salesName: string) => `Sales name ${salesName} was delete successfully.`
+}
+
 export const AUTH_MESSAGE = {
   MISSING_KEY: 'API Token KEY is required.',
   INVALID_KEY: 'API Token KEY is invalid.'

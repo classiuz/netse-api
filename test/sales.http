@@ -1,0 +1,97 @@
+# For Testing read README.md Test section
+@baseUrl = {{$dotenv URL}}:{{$dotenv PORT}}{{$dotenv ROOT_PATH}}
+@key = {{$dotenv API_KEY}}
+@path = sales
+
+# GET ALL SALES
+GET {{baseUrl}}/{{path}}?key={{key}}
+
+###
+
+# CREATE SALE - Failed
+POST {{baseUrl}}/{{path}}
+content-type: application/json
+
+{
+  "key": "{{key}}",
+  "firstName": "Franco",
+  "lastName": "Rodríguez",
+  "document": "44990850",
+  "phone": "1128508878",
+  "email": "frodriguez@netse.com.ar",
+  "address": {
+    "province": "Buenos Aires",
+    "neighborhood": "Capital Federal",
+    "direction": "Lavardén 43"
+  },
+  "coordinates": {
+    "lat": -24.8485052,
+    "lng": -65.3935712
+  },
+  "plan": "Random Plan",
+  "status": "NEGATIVA",
+  "service": "FTTH",
+  "createdBy": "Carlos"
+}
+
+###
+
+# CREATE SALE - Successfully
+POST {{baseUrl}}/{{path}}
+authorization: {{key}}
+content-type: application/json
+
+{
+  "firstName": "Franco",
+  "lastName": "Rodríguez",
+  "document": "449908503",
+  "phone": "1128508878",
+  "email": "frodriguez@netse.com.ar",
+  "address": {
+    "province": "Buenos Aires",
+    "neighborhood": "Capital Federal",
+    "direction": "Lavardén 43"
+  },
+  "coordinates": {
+    "lat": -24.8485052,
+    "lng": -65.3935712
+  },
+  "plan": "Salta 20 Mbps",
+  "status": "NEGATIVA",
+  "service": "FTTH",
+  "createdBy": "frodriguez"
+}
+###
+
+# GET SALE BY ID
+GET {{baseUrl}}/{{path}}/1
+authorization: {{key}}
+
+###
+
+# DELETE SALE
+DELETE {{baseUrl}}/{{path}}/2
+authorization: {{key}}
+
+###
+
+# UPDTATE A SALE - Failed
+PATCH {{baseUrl}}/{{path}}/1
+authorization: {{key}}
+content-type: application/json
+
+{
+  "sql": "SELECT * FROM user",
+  "service": "Wireless"
+}
+
+###
+
+# UPDATE SALE - Successfully
+PATCH {{baseUrl}}/{{path}}/1
+authorization: {{key}}
+content-type: application/json
+
+{
+  "notes": "Test Note add by update"
+}

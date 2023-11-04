@@ -3,35 +3,36 @@ import { coordinatesScheme } from '@/schemes/general'
 import zodParseError from '@/utils/zodParseError'
 import { ValidationError } from '@/errors/validationError'
 
-export const coverageAreaScheme = z.object({
+export const servicesAreasScheme = z.object({
   name: z.string(),
   province: z.string(),
   service: z.string(),
-  plansName: z.array(z.string()),
-  additionalsName: z.array(z.string()),
+  plans: z.array(z.string()),
+  additionals: z.array(z.string()),
   location: coordinatesScheme,
   range: z.array(coordinatesScheme),
+  monitoringId: z.string(),
   createdBy: z.string()
 })
 
-export const validateCoverangeArea = (value: typeof coverageAreaScheme) => {
-  const result = coverageAreaScheme.safeParse(value)
+export const validateServicesAreas = (value: typeof servicesAreasScheme) => {
+  const result = servicesAreasScheme.safeParse(value)
 
   if (!result.success) {
     const error = zodParseError({ errors: result.error })
     throw new ValidationError({ status: 400, error })
   }
 
-  return result
+  return result.data
 }
 
-export const validatePartialCoverangeArea = (value: typeof coverageAreaScheme) => {
-  const result = coverageAreaScheme.partial().safeParse(value)
+export const validatePartialServicesAreas = (value: typeof servicesAreasScheme) => {
+  const result = servicesAreasScheme.partial().safeParse(value)
 
   if (!result.success) {
     const error = zodParseError({ errors: result.error })
     throw new ValidationError({ status: 400, error })
   }
 
-  return result
+  return result.data
 }

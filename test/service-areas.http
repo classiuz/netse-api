@@ -1,0 +1,158 @@
+# For Testing read README.md Test section
+@baseUrl = {{$dotenv URL}}:{{$dotenv PORT}}{{$dotenv ROOT_PATH}}
+@key = {{$dotenv API_KEY}}
+@path = services-areas
+
+# GET ALL SERVICES AREAS
+GET {{baseUrl}}/{{path}}?key={{key}}
+
+###
+
+# CREATE SERVICE AREA - Failed
+POST {{baseUrl}}/{{path}}
+content-type: application/json
+
+{
+  "key": "{{key}}",
+  "name": "La caldera",
+  "service": "FTTH",
+  "createdBy": "Carlos"
+}
+
+###
+
+# CREATE SERVICE AREA - Successfully
+POST {{baseUrl}}/{{path}}
+authorization: {{key}}
+content-type: application/json
+
+{
+  "key": "{{key}}",
+  "name": "Justicia",
+  "province": "Salta",
+  "service": "FTTH",
+  "plans": ["Salta 10 Mbps", "Salta 20 Mbps"],
+  "additionals": ["Reposición Antena Salta"],
+  "location": {
+    "lat": -24.8485052,
+    "lng": -65.3935712
+  },
+  "range": [
+    {
+      "lat": -24.830536,
+      "lng": -65.393915
+    },
+    {
+      "lat": -24.830926,
+      "lng": -65.397686
+    },
+    {
+      "lat": -24.833263,
+      "lng": -65.404061
+    },
+    {
+      "lat": -24.836246,
+      "lng": -65.408049
+    },
+    {
+      "lat": -24.841769,
+      "lng": -65.411927
+    },
+    {
+      "lat": -24.850065,
+      "lng": -65.413294
+    },
+    {
+      "lat": -24.855229,
+      "lng": -65.411929
+    },
+    {
+      "lat": -24.86098,
+      "lng": -65.407814
+    },
+    {
+      "lat": -24.865587,
+      "lng": -65.399689
+    },
+    {
+      "lat": -24.866423,
+      "lng": -65.394951
+    },
+    {
+      "lat": -24.865933,
+      "lng": -65.388779
+    },
+    {
+      "lat": -24.863217,
+      "lng": -65.382212
+    },
+    {
+      "lat": -24.86098,
+      "lng": -65.379326
+    },
+    {
+      "lat": -24.855229,
+      "lng": -65.375211
+    },
+    {
+      "lat": -24.846621,
+      "lng": -65.373879
+    },
+    {
+      "lat": -24.840906,
+      "lng": -65.375627
+    },
+    {
+      "lat": -24.836246,
+      "lng": -65.379091
+    },
+    {
+      "lat": -24.833263,
+      "lng": -65.383079
+    },
+    {
+      "lat": -24.830926,
+      "lng": -65.389454
+    },
+    {
+      "lat": -24.830536,
+      "lng": -65.393915
+    }
+  ],
+  "monitoringId": "Random ID", 
+  "createdBy": "frodriguez"
+}
+
+###
+
+# GET SERVICE AREA BY NAME
+GET {{baseUrl}}/{{path}}/Justicia
+authorization: {{key}}
+
+###
+
+# DELETE SERVICE AREA
+DELETE {{baseUrl}}/{{path}}/Justicia
+authorization: {{key}}
+
+###
+
+# UPDTATE A SERVICE AREA - Failed
+PATCH {{baseUrl}}/{{path}}/Justicia
+authorization: {{key}}
+content-type: application/json
+
+{
+  "sql": "SELECT * FROM user"
+}
+
+###
+
+# UPDATE SERVICE AREA - Successfully
+PATCH {{baseUrl}}/{{path}}/Justicia
+authorization: {{key}}
+content-type: application/json
+
+{
+  "additionals": ["Reposición Antena Salta"]
+}

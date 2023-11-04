@@ -71,7 +71,10 @@ authorization: {{key}}
 content-type: application/json
 
 {
-  "name": "Reposición Antena Salta",
-  "price": 6000,
+  "price": 60000,
+  "installmentsPrice": {
+    "quantity": 6,
+    "price": 10000
+  },
   "createdBy": "frodriguez"
 }

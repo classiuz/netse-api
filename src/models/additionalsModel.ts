@@ -1,6 +1,7 @@
 import pool from '@/config/database'
 import getDate from '@/utils/getDate'
 import type { AdditionalObject, AdditionalOnlyName, AdditionalReturn, AdditionalUpdateProps } from '@/types/additional'
+import paramsJsonParse from '@/utils/paramsJsonParse'
 
 const getAllAdditionals = async () => {
   const [rows] = await pool.query('SELECT * FROM additionals')
@@ -25,8 +26,10 @@ const createAdditional = async ({ name, price, installmentsPrice, service, creat
 }
 
 const updateAdditional = async ({ newData, name }: AdditionalUpdateProps) => {
+  const params = paramsJsonParse(newData)
+
   try {
-    await pool.query('UPDATE additionals SET ? WHERE name = ?', [newData, name])
+    await pool.query('UPDATE additionals SET ? WHERE name = ?', [params, name])
   } catch (error) {
     throw error
   }
