@@ -16,7 +16,7 @@ const authUser = async (req: Request, res: Response) => {
   }
 
   try {
-    const user = await userExists({ username })
+    const user = await userExists({ username, selectFields: ['password'] })
 
     const isPasswordCorrect = await bcrypt.compare(password, user[0].password)
     if (!isPasswordCorrect) {

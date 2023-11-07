@@ -28,7 +28,7 @@ const createToken = async ({ name, createdBy }: TokenObject) => {
     await pool.query('INSERT INTO tokens (name, value, createdBy, createdAt) VALUES (?, ?, ?, ?)',
       [name, hashedValue, createdBy, date]
     )
-    return { name, createdBy, value }
+    return { name, value, createdBy, createdAt: date }
   } catch (error) {
     throw error
   }

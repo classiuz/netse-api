@@ -1,10 +1,10 @@
 import { USERS_MESSAGES } from '@/const/messages'
 import usersModels from '@/models/usersModel'
 import { ResponseError } from '@/errors/responseError'
-import type { UserOnlyUsername } from '@/types/user'
+import type { UserOnlyUsername, GetUserProps } from '@/types/user'
 
-export const userExists = async ({ username }: UserOnlyUsername) => {
-  const users = await usersModels.getUserByUsername({ username })
+export const userExists = async ({ username, selectFields }: GetUserProps) => {
+  const users = await usersModels.getUserByUsername({ username, selectFields })
 
   if (users.length === 0) {
     throw new ResponseError({ status: 404, message: USERS_MESSAGES.NOT_FOUND(username) })

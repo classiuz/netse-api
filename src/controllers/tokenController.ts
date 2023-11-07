@@ -9,8 +9,8 @@ import type { Request, Response } from 'express'
 
 const getAllTokens = async (req: Request, res: Response) => {
   try {
-    const tokens = await tokenModel.getAllTokens()
-    const response = createResponse({ code: 200, data: [{ ...tokens }] })
+    const data = await tokenModel.getAllTokens()
+    const response = createResponse({ code: 200, data })
     res.status(200).json(response).end()
   } catch (error) {
     handleError({ error, res })

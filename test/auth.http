@@ -3,7 +3,7 @@
 @key = {{$dotenv API_KEY}}
 @path = auth
 # AUTH USER
-GET {{baseUrl}}/{{path}}
+POST {{baseUrl}}/{{path}}
 authorization: {{key}}
 Content-Type: application/json
 
