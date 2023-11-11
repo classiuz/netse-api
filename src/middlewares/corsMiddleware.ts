@@ -1,6 +1,6 @@
 import cors from 'cors'
-import { ALLOWED_ORIGINS } from '@/config/environment'
-import { GENERAL_MESSAGES } from '@/const/messages'
+import { ALLOWED_ORIGINS } from '@/lib/environment'
+import { GENERAL_MESSAGES } from '@/lib/messages'
 
 const allowedOrigins = ALLOWED_ORIGINS?.split(', ')
 

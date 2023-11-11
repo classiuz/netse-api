@@ -63,6 +63,6 @@ authorization: {{key}}
 content-type: application/json
 
 {
-  "alternativeName": "Update Fibra Óptica",
+  "name": "FTTH",
   "createdBy": "frodriguez"
 }

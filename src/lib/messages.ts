@@ -1,7 +1,7 @@
-import { URL, PORT } from '@/config/server'
+import { SERVER } from '@/lib/config'
 
 export const START_MESSAGE = `
-    🟩 SERVER STARTED - Running on ${URL}:${PORT}
+    🟩 SERVER STARTED - Running on ${SERVER.URL}:${SERVER.PORT}
 `
 
 export const GENERAL_MESSAGES = {
@@ -9,6 +9,11 @@ export const GENERAL_MESSAGES = {
   UNKNOWN_ERROR: 'An unknown error occurred.',
   DOCUMENTATION_TIP: 'Read the documentation in https://github.com/classiuz/netse-api#-documentation',
   ENVIRONMENT_NOT_FOUND: (environment: string | undefined) => `The Environment ${environment} was not found.`
+}
+
+export const SEED_MESSAGES = {
+  CREATED: (tableName: string) => `- ✔ Table "${tableName}" was created successfully.`,
+  ERROR: 'An error occurred while attempting to seed the database:'
 }
 
 export const USERS_MESSAGES = {

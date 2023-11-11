@@ -1,7 +1,7 @@
 import z from 'zod'
 import { installmentsScheme } from './general'
-import zodParseError from '@/utils/zodParseError'
-import { ValidationError } from '@/errors/validationError'
+import { zodParseError } from '@/lib/utils'
+import { ValidationError } from '@/lib/errors'
 
 export const additionalScheme = z.object({
   name: z.string(),

@@ -1,4 +1,4 @@
-import type { RESPONSE_CODES, RESPONSE_MESSAGES, RESPONSE_STATUS } from '@/const/response'
+import type { RESPONSE_CODES, RESPONSE_MESSAGES, RESPONSE_STATUS } from '@/lib/constants'
 
 export type ResponseCode = keyof typeof RESPONSE_CODES
 export type ResponseStatus = typeof RESPONSE_STATUS

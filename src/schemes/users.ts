@@ -1,6 +1,6 @@
 import z from 'zod'
-import zodParseError from '@/utils/zodParseError'
-import { ValidationError } from '@/errors/validationError'
+import { zodParseError } from '@/lib/utils'
+import { ValidationError } from '@/lib/errors'
 
 export const usersScheme = z.object({
   username: z.string(),

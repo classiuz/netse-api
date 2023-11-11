@@ -1,23 +1,20 @@
-import pool from '@/config/database'
+import { database } from '@/lib/config'
 import type { ServiceObject, ServiceOnlyName, ServiceReturn, UpdateServiceProps } from '@/types/services'
-import getDate from '@/utils/getDate'
 
 const getAllServices = async () => {
-  const [rows] = await pool.query('SELECT id, name, alternativeName, createdBy, createdAt FROM services')
+  const [rows] = await database.query('SELECT id, name, alternativeName, createdBy, createdAt FROM services')
   return rows as ServiceReturn[]
 }
 
 const getServiceByName = async ({ name }: ServiceOnlyName) => {
-  const [rows] = await pool.query('SELECT id, name, alternativeName, createdBy, createdAt FROM services WHERE name = ?', [name])
+  const [rows] = await database.query('SELECT id, name, alternativeName, createdBy, createdAt FROM services WHERE name = ?', [name])
   return rows as ServiceReturn[]
 }
 
 const createService = async ({ name, createdBy, alternativeName }: ServiceObject) => {
-  const date = getDate()
-
   try {
-    await pool.query('INSERT INTO services (name, alternativeName, createdBy, createdAt) VALUES (?, ?, ?, ?)',
-      [name, alternativeName, createdBy, date]
+    await database.query('INSERT INTO services (name, alternativeName, createdBy) VALUES (?, ?, ?)',
+      [name, alternativeName, createdBy]
     )
   } catch (error) {
     throw error
@@ -26,7 +23,7 @@ const createService = async ({ name, createdBy, alternativeName }: ServiceObject
 
 const updateService = async ({ newData, name }: UpdateServiceProps) => {
   try {
-    await pool.query('UPDATE services SET ? WHERE name = ?', [newData, name])
+    await database.query('UPDATE services SET ? WHERE name = ?', [newData, name])
   } catch (error) {
     throw error
   }
@@ -34,7 +31,7 @@ const updateService = async ({ newData, name }: UpdateServiceProps) => {
 
 const deleteService = async ({ name }: ServiceOnlyName) => {
   try {
-    await pool.query('DELETE FROM services WHERE (name) = (?)', [name])
+    await database.query('DELETE FROM services WHERE (name) = (?)', [name])
   } catch (error) {
     throw error
   }

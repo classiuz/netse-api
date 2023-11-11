@@ -1,14 +1,10 @@
-import { SERVICES_AREAS_MESSAGE } from '@/const/messages'
+import { SERVICES_AREAS_MESSAGE } from '@/lib/messages'
 import servicesAreasModel from '@/models/servicesAreasModel'
 import { validateServicesAreas, validatePartialServicesAreas } from '@/schemes/servicesAreas'
-import { additionalExists } from '@/services/additionalsServices'
-import { emptyUpdate } from '@/services/generalServices'
-import { planExists } from '@/services/plansServices'
-import { serviceAreaAlreadyExists, serviceAreaExists } from '@/services/servicesAreasServices'
-import { serviceExists } from '@/services/servicesServices'
-import { userExists } from '@/services/usersServices'
-import createResponse from '@/utils/createResponse'
-import handleError from '@/utils/handleError'
+import { generalsServices, servicesServices, usersServices, servicesAreasServices, additionalsServices, plansServices } from '@/lib/services'
+
+import { createResponse, handleError } from '@/lib/utils'
+
 import type { Request, Response } from 'express'
 
 const getAllServicesAreas = async (req: Request, res: Response) => {
@@ -16,8 +12,8 @@ const getAllServicesAreas = async (req: Request, res: Response) => {
     const rawData = await servicesAreasModel.getAllServicesAreas()
     const data = await Promise.all(rawData.map(async ({ plans: initialPlans, additionals: initialadditionals, ...rest }) => {
       const [plans, additionals] = await Promise.all([
-        Promise.all(initialPlans.map(async name => await planExists({ name }).then(plans => plans[0]))),
-        Promise.all(initialadditionals.map(async name => await additionalExists({ name }).then(additionals => additionals[0])))
+        Promise.all(initialPlans.map(async name => await plansServices.exists({ name }).then(plans => plans[0]))),
+        Promise.all(initialadditionals.map(async name => await additionalsServices.exists({ name }).then(additionals => additionals[0])))
       ])
 
       return {
@@ -37,14 +33,14 @@ const getAllServicesAreas = async (req: Request, res: Response) => {
 const getServiceAreaByName = async (req: Request, res: Response) => {
   const { name } = req.params
   try {
-    const [{ plans: initialPlans, additionals: initialadditionals, ...rest }] = await serviceAreaExists({ name })
+    const [{ plans: initialPlans, additionals: initialadditionals, ...rest }] = await servicesAreasServices.exists({ name })
     const plans = await Promise.all(initialPlans.map(async (name) => {
-      const plans = await planExists({ name })
+      const plans = await plansServices.exists({ name })
       return plans[0]
     }))
 
     const additionals = await Promise.all(initialadditionals.map(async (name) => {
-      const additionals = await additionalExists({ name })
+      const additionals = await additionalsServices.exists({ name })
       return additionals[0]
     }))
 
@@ -58,9 +54,9 @@ const getServiceAreaByName = async (req: Request, res: Response) => {
 const createServiceArea = async (req: Request, res: Response) => {
   try {
     const result = validateServicesAreas(req.body)
-    await serviceAreaAlreadyExists({ name: result.name })
-    await serviceExists({ name: result.service })
-    await userExists({ username: result.createdBy })
+    await servicesAreasServices.alreadyExists({ name: result.name })
+    await servicesServices.exists({ name: result.service })
+    await usersServices.exists({ username: result.createdBy })
 
     await servicesAreasModel.createServiceArea(result)
     const response = createResponse({ code: 201, message: SERVICES_AREAS_MESSAGE.CREATED(result.name), data: [result] })
@@ -74,19 +70,19 @@ const updateServiceArea = async (req: Request, res: Response) => {
   const { name } = req.params
   try {
     const result = validatePartialServicesAreas(req.body)
-    await emptyUpdate({ data: result, message: SERVICES_AREAS_MESSAGE.EMPTY_UPDATE(name) })
-    await serviceAreaExists({ name })
+    await generalsServices.emptyUpdate({ data: result, message: SERVICES_AREAS_MESSAGE.EMPTY_UPDATE(name) })
+    await servicesAreasServices.exists({ name })
 
     if (result.name !== undefined) {
-      await serviceAreaAlreadyExists({ name: result.name })
+      await servicesAreasServices.alreadyExists({ name: result.name })
     }
 
     if (result.service !== undefined) {
-      await serviceExists({ name: result.service })
+      await servicesServices.exists({ name: result.service })
     }
 
     if (result.createdBy !== undefined) {
-      await userExists({ username: result.createdBy })
+      await usersServices.exists({ username: result.createdBy })
     }
 
     await servicesAreasModel.updateServiceArea({ name, newData: result })
@@ -101,7 +97,7 @@ const deleteServiceArea = async (req: Request, res: Response) => {
   const { name } = req.params
 
   try {
-    const serviceArea = await serviceAreaExists({ name })
+    const serviceArea = await servicesAreasServices.exists({ name })
 
     await servicesAreasModel.deleteServiceArea({ name: serviceArea[0].name })
     const response = createResponse({ code: 200, message: SERVICES_AREAS_MESSAGE.DELETE(serviceArea[0].name) })

@@ -1,12 +1,10 @@
-import { ADDITIONAL_MESSAGE } from '@/const/messages'
+import { ADDITIONAL_MESSAGE } from '@/lib/messages'
 import additionalsModel from '@/models/additionalsModel'
 import { validateAdditional, validatePartialAdditional } from '@/schemes/additionals'
-import { additionalExists, additionalAlreadyExists } from '@/services/additionalsServices'
-import { emptyUpdate } from '@/services/generalServices'
-import { serviceExists } from '@/services/servicesServices'
-import { userExists } from '@/services/usersServices'
-import createResponse from '@/utils/createResponse'
-import handleError from '@/utils/handleError'
+import { generalsServices, servicesServices, usersServices, additionalsServices } from '@/lib/services'
+
+import { createResponse, handleError } from '@/lib/utils'
+
 import type { Request, Response } from 'express'
 
 const getAllAdditional = async (req: Request, res: Response) => {
@@ -22,7 +20,7 @@ const getAllAdditional = async (req: Request, res: Response) => {
 const getAdditionalByName = async (req: Request, res: Response) => {
   const { name } = req.params
   try {
-    const data = await additionalExists({ name })
+    const data = await additionalsServices.exists({ name })
 
     const response = createResponse({ code: 200, data })
     res.status(200).json(response).end()
@@ -34,9 +32,9 @@ const getAdditionalByName = async (req: Request, res: Response) => {
 const createAdditional = async (req: Request, res: Response) => {
   try {
     const result = validateAdditional(req.body)
-    await additionalAlreadyExists({ name: result.data.name })
-    await userExists({ username: result.data.createdBy })
-    await serviceExists({ name: result.data.service })
+    await additionalsServices.alreadyExists({ name: result.data.name })
+    await usersServices.exists({ username: result.data.createdBy })
+    await servicesServices.exists({ name: result.data.service })
 
     await additionalsModel.createAdditional(result.data)
     const response = createResponse({ code: 201, message: ADDITIONAL_MESSAGE.CREATED(result.data.name), data: [result.data] })
@@ -50,19 +48,19 @@ const updateAdditional = async (req: Request, res: Response) => {
   const { name } = req.params
   try {
     const result = validatePartialAdditional(req.body)
-    await emptyUpdate({ data: result.data, message: ADDITIONAL_MESSAGE.EMPTY_UPDATE(name) })
-    await additionalExists({ name })
+    await generalsServices.emptyUpdate({ data: result.data, message: ADDITIONAL_MESSAGE.EMPTY_UPDATE(name) })
+    await additionalsServices.exists({ name })
 
     if (result.data.name !== undefined) {
-      await additionalAlreadyExists({ name: result.data.name })
+      await additionalsServices.alreadyExists({ name: result.data.name })
     }
 
     if (result.data.createdBy !== undefined) {
-      await userExists({ username: result.data.createdBy })
+      await usersServices.exists({ username: result.data.createdBy })
     }
 
     if (result.data.service !== undefined) {
-      await serviceExists({ name: result.data.service })
+      await servicesServices.exists({ name: result.data.service })
     }
 
     await additionalsModel.updateAdditional({ name, newData: result.data })
@@ -77,7 +75,7 @@ const deleteAdditional = async (req: Request, res: Response) => {
   const { name } = req.params
 
   try {
-    const additional = await additionalExists({ name })
+    const additional = await additionalsServices.exists({ name })
 
     await additionalsModel.deleteAdditional({ name: additional[0].name })
     const response = createResponse({ code: 200, message: ADDITIONAL_MESSAGE.DELETE(additional[0].name) })

@@ -25,7 +25,7 @@ authorization: {{key}}
 content-type: application/json
 
 {
-  "username": "frodriguez",
+  "username": "frodriguez2",
   "firstName": "Franco",
   "lastName": "Rodríguez",
   "email": "frodriguez@netse.com.ar",

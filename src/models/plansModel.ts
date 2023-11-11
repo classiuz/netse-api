@@ -1,23 +1,20 @@
-import pool from '@/config/database'
+import { database } from '@/lib/config'
 import type { PlanObject, PlanOnlyName, PlanReturn, PlansUpdateProps } from '@/types/plans'
-import getDate from '@/utils/getDate'
 
 const getAllPlans = async () => {
-  const [rows] = await pool.query('SELECT * FROM plans')
+  const [rows] = await database.query('SELECT * FROM plans')
   return rows as PlanReturn[]
 }
 
 const getPlanByName = async ({ name }: PlanOnlyName) => {
-  const [rows] = await pool.query('SELECT * FROM plans WHERE name = ?', [name])
+  const [rows] = await database.query('SELECT * FROM plans WHERE name = ?', [name])
   return rows as PlanReturn[]
 }
 
 const createPlan = async ({ name, price, download, upload, service, createdBy }: PlanObject) => {
-  const date = getDate()
-
   try {
-    await pool.query('INSERT INTO plans (name, download, upload, price, service, createdBy, createdAt) VALUES (?, ?, ?, ?, ?, ?, ?)',
-      [name, download, upload, price, service, createdBy, date]
+    await database.query('INSERT INTO plans (name, download, upload, price, service, createdBy) VALUES (?, ?, ?, ?, ?, ?)',
+      [name, download, upload, price, service, createdBy]
     )
   } catch (error) {
     throw error
@@ -26,7 +23,7 @@ const createPlan = async ({ name, price, download, upload, service, createdBy }:
 
 const updatePlan = async ({ newData, name }: PlansUpdateProps) => {
   try {
-    await pool.query('UPDATE plans SET ? WHERE name = ?', [newData, name])
+    await database.query('UPDATE plans SET ? WHERE name = ?', [newData, name])
   } catch (error) {
     throw error
   }
@@ -34,7 +31,7 @@ const updatePlan = async ({ newData, name }: PlansUpdateProps) => {
 
 const deletePlan = async ({ name }: PlanOnlyName) => {
   try {
-    await pool.query('DELETE FROM plans WHERE (name) = ?', [name])
+    await database.query('DELETE FROM plans WHERE (name) = ?', [name])
   } catch (error) {
     throw error
   }

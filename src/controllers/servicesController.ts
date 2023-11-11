@@ -1,11 +1,10 @@
-import { SERVICES_MESSAGE } from '@/const/messages'
+import { SERVICES_MESSAGE } from '@/lib/messages'
 import servicesModel from '@/models/servicesModel'
 import { validatePartialService, validateService } from '@/schemes/services'
-import { emptyUpdate } from '@/services/generalServices'
-import { serviceExists, serviceAlreadyExists } from '@/services/servicesServices'
-import { userExists } from '@/services/usersServices'
-import createResponse from '@/utils/createResponse'
-import handleError from '@/utils/handleError'
+import { generalsServices, servicesServices, usersServices } from '@/lib/services'
+
+import { createResponse, handleError } from '@/lib/utils'
+
 import type { Request, Response } from 'express'
 
 const getAllServices = async (req: Request, res: Response) => {
@@ -21,7 +20,7 @@ const getAllServices = async (req: Request, res: Response) => {
 const getServiceByName = async (req: Request, res: Response) => {
   const { name } = req.params
   try {
-    const data = await serviceExists({ name })
+    const data = await servicesServices.exists({ name })
 
     const response = createResponse({ code: 200, data })
     res.status(200).json(response).end()
@@ -33,8 +32,8 @@ const getServiceByName = async (req: Request, res: Response) => {
 const createService = async (req: Request, res: Response) => {
   try {
     const result = validateService(req.body)
-    await serviceAlreadyExists({ name: result.data.name })
-    await userExists({ username: result.data.createdBy })
+    await servicesServices.alreadyExists({ name: result.data.name })
+    await usersServices.exists({ username: result.data.createdBy })
 
     await servicesModel.createService(result.data)
     const response = createResponse({ code: 201, message: SERVICES_MESSAGE.CREATED(result.data.name), data: [result.data] })
@@ -48,15 +47,15 @@ const updateService = async (req: Request, res: Response) => {
   const { name } = req.params
   try {
     const result = validatePartialService(req.body)
-    await emptyUpdate({ data: result.data, message: SERVICES_MESSAGE.EMPTY_UPDATE(name) })
-    await serviceExists({ name })
+    await generalsServices.emptyUpdate({ data: result.data, message: SERVICES_MESSAGE.EMPTY_UPDATE(name) })
+    await servicesServices.exists({ name })
 
     if (result.data.name !== undefined) {
-      await serviceAlreadyExists({ name: result.data.name })
+      await servicesServices.alreadyExists({ name: result.data.name })
     }
 
     if (result.data.createdBy !== undefined) {
-      await userExists({ username: result.data.createdBy })
+      await usersServices.exists({ username: result.data.createdBy })
     }
 
     await servicesModel.updateService({ name, newData: result.data })
@@ -71,7 +70,7 @@ const deleteService = async (req: Request, res: Response) => {
   const { name } = req.params
 
   try {
-    const service = await serviceExists({ name })
+    const service = await servicesServices.exists({ name })
 
     await servicesModel.deleteService({ name: service[0].name })
     const response = createResponse({ code: 200, message: SERVICES_MESSAGE.DELETE(service[0].name) })

@@ -1,11 +1,13 @@
-import pool from '@/config/database'
+import { database } from '@/lib/config'
+import { SEED_MESSAGES } from '@/lib/messages'
 
-// This file creates all database tables if they do not exist when called.
+// This script creates all database tables if they do not exist when called.
 // It is important to create the Tables in the following order to use the relationships between them.
 // users -> services -> plans, additionals -> sales, services-areas -> others
 
-const createSalesTable = async () => {
-  await pool.query(`
+export const seedSales = async () => {
+  try {
+    await database.query(`
     CREATE TABLE IF NOT EXISTS \`sales\` (
       \`id\` INT PRIMARY KEY AUTO_INCREMENT,
       \`firstName\` VARCHAR(250) NOT NULL,
@@ -24,16 +26,21 @@ const createSalesTable = async () => {
       \`status\` VARCHAR(100) NOT NULL,
       \`createdBy\` VARCHAR(100) NOT NULL,
       FOREIGN KEY (\`createdBy\`) REFERENCES \`users\`(\`username\`),
-      \`createdAt\` DATETIME NOT NULL
+      \`createdAt\` DATETIME DEFAULT CURRENT_TIMESTAMP()
     )
   `)
+    console.log(SEED_MESSAGES.CREATED('sales'))
+  } catch (error) {
+    throw error
+  }
 }
 
-const createServiceAreasTable = async () => {
-  await pool.query(`
+export const seedServiceAreas = async () => {
+  try {
+    await database.query(`
     CREATE TABLE IF NOT EXISTS \`services-areas\` (
       \`id\` INT PRIMARY KEY AUTO_INCREMENT,
-      \`name\` VARCHAR(300) NOT NULL UNIQUE,
+      \`name\` VARCHAR(150) NOT NULL UNIQUE,
       \`province\` VARCHAR(100) NOT NULL,
       \`service\` VARCHAR(100) NOT NULL,
       FOREIGN KEY (\`service\`) REFERENCES \`services\`(\`name\`),
@@ -44,13 +51,18 @@ const createServiceAreasTable = async () => {
       \`monitoringId\` VARCHAR(100) NOT NULL,
       \`createdBy\` VARCHAR(100) NOT NULL,
       FOREIGN KEY (\`createdBy\`) REFERENCES \`users\`(\`username\`),
-      \`createdAt\` VARCHAR(25) NOT NULL
+      \`createdAt\` DATETIME DEFAULT CURRENT_TIMESTAMP()
     )
   `)
+    console.log(SEED_MESSAGES.CREATED('services-areas'))
+  } catch (error) {
+    throw error
+  }
 }
 
-const createAdditionalsTable = async () => {
-  await pool.query(`
+export const seedAdditionals = async () => {
+  try {
+    await database.query(`
     CREATE TABLE IF NOT EXISTS \`additionals\` (
       \`id\` INT PRIMARY KEY AUTO_INCREMENT,
       \`name\` VARCHAR(100) NOT NULL UNIQUE,
@@ -60,13 +72,18 @@ const createAdditionalsTable = async () => {
       FOREIGN KEY (\`service\`) REFERENCES \`services\`(\`name\`),
       \`createdBy\` VARCHAR(100) NOT NULL,
       FOREIGN KEY (\`createdBy\`) REFERENCES \`users\`(\`username\`),
-      \`createdAt\` VARCHAR(25) NOT NULL
+      \`createdAt\` DATETIME DEFAULT CURRENT_TIMESTAMP()
     )
   `)
+    console.log(SEED_MESSAGES.CREATED('additionals'))
+  } catch (error) {
+    throw error
+  }
 }
 
-const createPlansTable = async () => {
-  await pool.query(`
+export const seedPlans = async () => {
+  try {
+    await database.query(`
     CREATE TABLE IF NOT EXISTS \`plans\` (
       \`id\` INT PRIMARY KEY AUTO_INCREMENT,
       \`name\` VARCHAR(100) NOT NULL UNIQUE,
@@ -75,69 +92,74 @@ const createPlansTable = async () => {
       \`price\` DECIMAL(12, 2) NOT NULL,
       \`service\` VARCHAR(100) NOT NULL,
       FOREIGN KEY (\`service\`) REFERENCES \`services\`(\`name\`),
-      \`createdBy\` VARCHAR(255) NOT NULL,
+      \`createdBy\` VARCHAR(100) NOT NULL,
       FOREIGN KEY (\`createdBy\`) REFERENCES \`users\`(\`username\`),
-      \`createdAt\` VARCHAR(25) NOT NULL
+      \`createdAt\` DATETIME DEFAULT CURRENT_TIMESTAMP()
     )
   `)
+    console.log(SEED_MESSAGES.CREATED('plans'))
+  } catch (error) {
+    throw error
+  }
 }
 
-const createClientsTable = async () => {
-  await pool.query(`
-    CREATE TABLE IF NOT EXISTS \`clients\` (
-      \`id\` INT PRIMARY KEY AUTO_INCREMENT,
-      \`firstName\` VARCHAR(300) NOT NULL,
-      \`lastName\` VARCHAR(300) NOT NULL,
-      \`document\` INT NOT NULL,
-      \`email\` VARCHAR(255) NOT NULL,
-      \`address\` JSON NOT NULL,
-      \`coordinates\` JSON NOT NULL,
-      \`createdAt\` VARCHAR(25) NOT NULL
-    )
-  `)
-}
-
-const createBlacklistTable = async () => {
-  await pool.query(`
+export const seedBlacklist = async () => {
+  try {
+    await database.query(`
     CREATE TABLE IF NOT EXISTS \`blacklist\` (
       \`id\` INT PRIMARY KEY AUTO_INCREMENT,
       \`clientId\` VARCHAR(10) NOT NULL,
       \`reason\` TEXT NOT NULL,
       \`createdBy\` VARCHAR(100) NOT NULL,
       FOREIGN KEY (\`createdBy\`) REFERENCES \`users\`(\`username\`),
-      \`createdAt\` VARCHAR(25) NOT NULL
+      \`createdAt\` DATETIME DEFAULT CURRENT_TIMESTAMP()
     )
   `)
+    console.log(SEED_MESSAGES.CREATED('blacklist'))
+  } catch (error) {
+    throw error
+  }
 }
 
-const createServicesTable = async () => {
-  await pool.query(`
+export const seedServices = async () => {
+  try {
+    await database.query(`
     CREATE TABLE IF NOT EXISTS \`services\` (
       \`id\` INT PRIMARY KEY AUTO_INCREMENT,
       \`name\` VARCHAR(100) NOT NULL UNIQUE,
       \`alternativeName\` VARCHAR(100) NOT NULL,
-      \`createdBy\` VARCHAR(255) NOT NULL,
+      \`createdBy\` VARCHAR(100) NOT NULL,
       FOREIGN KEY (\`createdBy\`) REFERENCES \`users\`(\`username\`),
-      \`createdAt\` VARCHAR(25) NOT NULL
+      \`createdAt\` DATETIME DEFAULT CURRENT_TIMESTAMP()
     )
   `)
+    console.log(SEED_MESSAGES.CREATED('services'))
+  } catch (error) {
+    throw error
+  }
 }
 
-const createTokensTable = async () => {
-  await pool.query(`
+export const seedTokens = async () => {
+  try {
+    await database.query(`
     CREATE TABLE IF NOT EXISTS \`tokens\` (
       \`id\` INT PRIMARY KEY AUTO_INCREMENT,
       \`name\` VARCHAR(100) NOT NULL UNIQUE,
       \`value\` VARCHAR(300) NOT NULL,
-      \`createdBy\` VARCHAR(255) NOT NULL,
+      \`createdBy\` VARCHAR(100) NOT NULL,
       FOREIGN KEY (\`createdBy\`) REFERENCES \`users\`(\`username\`),
-      \`createdAt\` VARCHAR(25) NOT NULL
+      \`createdAt\` DATETIME DEFAULT CURRENT_TIMESTAMP()
     )
   `)
+    console.log(SEED_MESSAGES.CREATED('tokens'))
+  } catch (error) {
+    throw error
+  }
 }
 
-const createUsersTable = async () => {
-  await pool.query(`
+export const seedUsers = async () => {
+  try {
+    await database.query(`
     CREATE TABLE IF NOT EXISTS \`users\` (
       \`id\` INT PRIMARY KEY AUTO_INCREMENT,
       \`username\` VARCHAR(100) NOT NULL UNIQUE,
@@ -145,27 +167,31 @@ const createUsersTable = async () => {
       \`firstName\` VARCHAR(255) NOT NULL,
       \`lastName\` VARCHAR(255) NOT NULL,
       \`password\` VARCHAR(255) NOT NULL,
-      \`createdAt\` VARCHAR(25) NOT NULL
+      \`createdAt\` DATETIME DEFAULT CURRENT_TIMESTAMP()
     )
   `)
+    console.log(SEED_MESSAGES.CREATED('users'))
+  } catch (error) {
+    throw error
+  }
 }
 
-export default () => {
-  void createUsersTable() // Not relation required.
+const main = async() => {
+  await seedUsers()
+  await seedServices()
+  await seedTokens()
+  await seedBlacklist()
+  await seedAdditionals()
+  await seedPlans()
+  await seedSales()
+  await seedServiceAreas()
+}
 
-  void createClientsTable() // Not relation required.
-
-  void createServicesTable() // users Table required.
-
-  void createTokensTable() // users Table required.
-
-  void createBlacklistTable() // users Table required.
-
-  void createAdditionalsTable() // services, users Tables required.
-
-  void createPlansTable() // services, users Tables required.
-
-  void createSalesTable() // services, plans, users Tables required.
-
-  void createServiceAreasTable() // services, plans, additionals, users Tables required.
+try {
+  void main()
+} catch (error) {
+  console.error(
+    SEED_MESSAGES.ERROR,
+    error
+  )
 }

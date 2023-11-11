@@ -1,10 +1,9 @@
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
-import createResponse from '@/utils/createResponse'
-import handleError from '@/utils/handleError'
-import { GENERAL_MESSAGES } from '@/const/messages'
-import { SECRET_KEY } from '@/config/environment'
-import { userExists } from '@/services/usersServices'
+import { createResponse, handleError } from '@/lib/utils'
+import { GENERAL_MESSAGES } from '@/lib/messages'
+import { SECRET_KEY } from '@/lib/environment'
+import { usersServices } from '@/lib/services'
 import type { Request, Response } from 'express'
 
 const authUser = async (req: Request, res: Response) => {
@@ -16,7 +15,7 @@ const authUser = async (req: Request, res: Response) => {
   }
 
   try {
-    const user = await userExists({ username, selectFields: ['password'] })
+    const user = await usersServices.exists({ username, selectFields: ['password'] })
 
     const isPasswordCorrect = await bcrypt.compare(password, user[0].password)
     if (!isPasswordCorrect) {

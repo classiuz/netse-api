@@ -7,7 +7,8 @@
     "dev": "nodemon -r esm -r tsconfig-paths/register src/index.ts",
     "build": "tsc && tsc-alias",
     "start": "node -r esm ./build/index.js",
-    "lint": "eslint . --ext .ts"
+    "lint": "eslint . --ext .ts",
+    "seed": "ts-node -r esm -r tsconfig-paths/register ./src/scripts/seed.ts"
   },
   "keywords": [],
   "author": "",

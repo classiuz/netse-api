@@ -1,4 +1,4 @@
-import createResponse from '@/utils/createResponse'
+import { createResponse } from '@/lib/utils'
 import type { Request, Response } from 'express'
 
 const notFoundMiddleware = (req: Request, res: Response) => {

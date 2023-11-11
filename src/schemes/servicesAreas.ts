@@ -1,7 +1,7 @@
 import z from 'zod'
 import { coordinatesScheme } from '@/schemes/general'
-import zodParseError from '@/utils/zodParseError'
-import { ValidationError } from '@/errors/validationError'
+import { zodParseError } from '@/lib/utils'
+import { ValidationError } from '@/lib/errors'
 
 export const servicesAreasScheme = z.object({
   name: z.string(),

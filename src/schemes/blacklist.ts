@@ -1,6 +1,6 @@
 import z from 'zod'
-import { ValidationError } from '@/errors/validationError'
-import zodParseError from '@/utils/zodParseError'
+import { ValidationError } from '@/lib/errors'
+import { zodParseError } from '@/lib/utils'
 
 export const blacklistScheme = z.object({
   clientId: z.string(),
