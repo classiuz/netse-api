@@ -1,15 +1,15 @@
 # For Testing read README.md Test section
 @baseUrl = {{$dotenv URL}}:{{$dotenv PORT}}{{$dotenv ROOT_PATH}}
 @key = {{$dotenv KEY}}
-@path = tokens
+@path = api-keys
 
-# GET ALL TOKENS
+# GET ALL API KEYS
 GET {{baseUrl}}/{{path}}
 authorization: {{key}}
 
 ###
 
-# CREATE TOKEN - Failed
+# CREATE API KEYS - Failed
 POST {{baseUrl}}/{{path}}
 authorization: {{key}}
 content-type: application/json
@@ -21,7 +21,7 @@ content-type: application/json
 
 ###
 
-# CREATE TOKEN - Successfully
+# CREATE API KEYS - Successfully
 POST {{baseUrl}}/{{path}}
 authorization: {{key}}
 content-type: application/json
@@ -33,7 +33,7 @@ content-type: application/json
 
 ###
 
-# DELETE TOKEN
+# DELETE API KEYS
 DELETE {{baseUrl}}/{{path}}/TEST
 authorization: {{key}}
 

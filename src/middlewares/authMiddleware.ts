@@ -1,6 +1,6 @@
 import bcrypt from 'bcrypt'
 import { AUTH_MESSAGE } from '@/lib/messages'
-import tokenModel from '@/models/tokenModel'
+import apiKeysModel from '@/models/apiKeysModel'
 import { createResponse } from '@/lib/utils'
 import type { NextFunction, Request, Response } from 'express'
 
@@ -15,9 +15,9 @@ const authMiddleware = async (req: Request, res: Response, next: NextFunction) =
     return res.status(401).json(response).end()
   }
 
-  const tokens = await tokenModel.getAllTokensValues()
-  for (const token of tokens) {
-    const validKey = await bcrypt.compare(key, token.value)
+  const apiKeys = await apiKeysModel.getAllApiKeysValues()
+  for (const apiKey of apiKeys) {
+    const validKey = await bcrypt.compare(key, apiKey.value)
     if (validKey) {
       next()
       return

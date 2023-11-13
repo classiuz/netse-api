@@ -10,7 +10,7 @@ import corsMiddleware from '@/middlewares/corsMiddleware'
 
 import userRoutes from '@/routes/usersRoutes'
 import authRoutes from '@/routes/authRoutes'
-import tokenRoutes from '@/routes/tokenRoutes'
+import apiKeysRoutes from '@/routes/apiKeysRoutes'
 import blacklistRoutes from '@/routes/blacklistRoutes'
 import servicesRoutes from '@/routes/servicesRoutes'
 import plansRoutes from '@/routes/plansRoutes'
@@ -24,7 +24,7 @@ app.use(express.json())
 
 app.use(SERVER.ROOT_PATH + PATHS.USERS, authMiddleware, userRoutes)
 app.use(SERVER.ROOT_PATH + PATHS.AUTH, authMiddleware, authRoutes)
-app.use(SERVER.ROOT_PATH + PATHS.TOKEN, authMiddleware, tokenRoutes)
+app.use(SERVER.ROOT_PATH + PATHS.API_KEYS, authMiddleware, apiKeysRoutes)
 app.use(SERVER.ROOT_PATH + PATHS.BLACKLIST, authMiddleware, blacklistRoutes)
 app.use(SERVER.ROOT_PATH + PATHS.SERVICES, authMiddleware, servicesRoutes)
 app.use(SERVER.ROOT_PATH + PATHS.PLANS, authMiddleware, plansRoutes)

@@ -2,13 +2,13 @@ import z from 'zod'
 import { ValidationError } from '@/lib/errors'
 import { zodParseError } from '@/lib/utils'
 
-export const tokenScheme = z.object({
+export const apiKeysScheme = z.object({
   name: z.string(),
   createdBy: z.string()
 })
 
-export const validateToken = (value: typeof tokenScheme) => {
-  const result = tokenScheme.safeParse(value)
+export const validateApiKey = (value: typeof apiKeysScheme) => {
+  const result = apiKeysScheme.safeParse(value)
 
   if (!result.success) {
     const error = zodParseError({ errors: result.error })

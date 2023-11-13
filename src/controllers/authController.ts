@@ -25,8 +25,8 @@ const authUser = async (req: Request, res: Response) => {
 
     const [{ password: mockPassword, ...rest }] = user
     if (!SECRET_KEY) throw new Error(GENERAL_MESSAGES.ENVIRONMENT_NOT_FOUND('SECRET_KEY'))
-    const token = jwt.sign({ username }, SECRET_KEY, { expiresIn: '1h' })
-    const response = createResponse({ code: 200, data: { user: { ...rest }, token } })
+    const apiKeys = jwt.sign({ username }, SECRET_KEY, { expiresIn: '1h' })
+    const response = createResponse({ code: 200, data: { user: { ...rest }, apiKeys } })
     res.status(200).json(response).end()
   } catch (error) {
     handleError({ error, res })

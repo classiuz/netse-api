@@ -12,7 +12,10 @@ export const GENERAL_MESSAGES = {
 }
 
 export const SEED_MESSAGES = {
-  CREATED: (tableName: string) => `- ✔ Table "${tableName}" was created successfully.`,
+  START: 'Starting the database initialization process.',
+  FINISH: (duration: string) => `The process ended, total duration: ${duration}.`,
+  CREATED: (tableName: string) => `   - ✔ The "${tableName}" table was created successfully.`,
+  OMITED: (tableName: string) => `   - ✘ The "${tableName}" table was already created, so it was omitted.`,
   ERROR: 'An error occurred while attempting to seed the database:'
 }
 
@@ -35,12 +38,12 @@ export const BLACKLIST_MESSAGE = {
   DELETE: (clientId: string) => `The blacklist with the client ${clientId} was delete successfully.`
 }
 
-export const TOKEN_MESSAGE = {
-  CREATED: (name: string) => `Token ${name} was created successfully.`,
-  NOT_FOUND: (name: string) => `The Token ${name} was not found.`,
+export const API_KEYS_MESSAGE = {
+  CREATED: (name: string) => `Key ${name} was created successfully.`,
+  NOT_FOUND: (name: string) => `The Key ${name} was not found.`,
   USER_DONT_EXIST: (username: string) => `The user ${username} not exist.`,
-  ALREADY_CREATED: (name: string) => `The Token ${name} was already created.`,
-  DELETE: (name: string) => `The Token ${name} was delete successfully.`
+  ALREADY_CREATED: (name: string) => `The Key ${name} was already created.`,
+  DELETE: (name: string) => `The Key ${name} was delete successfully.`
 }
 
 export const SERVICES_MESSAGE = {
@@ -94,6 +97,6 @@ export const SALES_MESSAGE = {
 }
 
 export const AUTH_MESSAGE = {
-  MISSING_KEY: 'API Token KEY is required.',
-  INVALID_KEY: 'API Token KEY is invalid.'
+  MISSING_KEY: 'API KEY is required.',
+  INVALID_KEY: 'API KEY is invalid.'
 }

@@ -1,7 +1,7 @@
 export const PATHS = {
   USERS: '/users',
   AUTH: '/auth',
-  TOKEN: '/tokens',
+  API_KEYS: '/api-keys',
   BLACKLIST: '/blacklist',
   SERVICES: '/services',
   PLANS: '/plans',

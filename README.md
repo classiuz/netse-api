@@ -87,9 +87,9 @@ content-type: application/json
 | [/users](#users)                        | `POST`        | /users                        | `API Token`        | Create a new user                                  |
 | [/users](#users)                        | `DELETE`      | /users/:username              | `API Token`        | Delete a user by username                          |
 | [/users](#users)                        | `PATCH`       | /users/:username              | `API Token`        | Update a user by username                          |
-| [/tokens](#tokens)                      | `GET`         | /tokens                       | `API Token`        | Get all tokens                                     |
-| [/tokens](#tokens)                      | `POST`        | /tokens                       | `API Token`        | Create a new token                                 |
-| [/tokens](#tokens)                      | `DELETE`      | /tokens/:name                 | `API Token`        | Delete a token by token name                       |
+| [/api-keys](#api-keys)                  | `GET`         | /api-keys                     | `API Token`        | Get all Api Keys                                   |
+| [/api-keys](#api-keys)                  | `POST`        | /api-keys                     | `API Token`        | Create a new token                                 |
+| [/api-keys](#api-keys)                  | `DELETE`      | /api-keys/:name               | `API Token`        | Delete a token by token name                       |
 | [/auth](#auth)                          | `GET`         | /auth                         | `API Token`        | Validate user authentication                       |
 | [/blacklist](#blacklist)                | `GET`         | /blacklist                    | `API Token`        | Get all blacklist                                  |
 | [/blacklist](#blacklist)                | `GET`         | /blacklist/:clientId          | `API Token`        | Get blacklist by clientId                          |
@@ -128,7 +128,7 @@ content-type: application/json
 
 ⌚ Developing...
 
-#### /tokens
+#### /api-keys
 
 ⌚ Developing...
 

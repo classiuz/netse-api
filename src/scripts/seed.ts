@@ -139,10 +139,10 @@ export const seedServices = async () => {
   }
 }
 
-export const seedTokens = async () => {
+export const seedApiKeys = async () => {
   try {
     await database.query(`
-    CREATE TABLE IF NOT EXISTS \`tokens\` (
+    CREATE TABLE IF NOT EXISTS \`api-keys\` (
       \`id\` INT PRIMARY KEY AUTO_INCREMENT,
       \`name\` VARCHAR(100) NOT NULL UNIQUE,
       \`value\` VARCHAR(300) NOT NULL,
@@ -151,7 +151,7 @@ export const seedTokens = async () => {
       \`createdAt\` DATETIME DEFAULT CURRENT_TIMESTAMP()
     )
   `)
-    console.log(SEED_MESSAGES.CREATED('tokens'))
+    console.log(SEED_MESSAGES.CREATED('api-keys'))
   } catch (error) {
     throw error
   }
@@ -170,21 +170,25 @@ export const seedUsers = async () => {
       \`createdAt\` DATETIME DEFAULT CURRENT_TIMESTAMP()
     )
   `)
-    console.log(SEED_MESSAGES.CREATED('users'))
+    console.log(SEED_MESSAGES.OMITED('users'))
   } catch (error) {
     throw error
   }
 }
 
 const main = async() => {
+  console.log(SEED_MESSAGES.START)
+
   await seedUsers()
   await seedServices()
-  await seedTokens()
+  await seedApiKeys()
   await seedBlacklist()
   await seedAdditionals()
   await seedPlans()
   await seedSales()
   await seedServiceAreas()
+
+  console.log(SEED_MESSAGES.FINISH('2.5 seg'))
 }
 
 try {

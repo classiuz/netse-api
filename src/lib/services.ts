@@ -1,8 +1,8 @@
 import { ResponseError } from '@/lib/errors'
-import { USERS_MESSAGES, TOKEN_MESSAGE, SERVICES_MESSAGE, SERVICES_AREAS_MESSAGE, SALES_MESSAGE, PLANS_MESSAGE, BLACKLIST_MESSAGE, ADDITIONAL_MESSAGE } from '@/lib/messages'
+import { USERS_MESSAGES, API_KEYS_MESSAGE, SERVICES_MESSAGE, SERVICES_AREAS_MESSAGE, SALES_MESSAGE, PLANS_MESSAGE, BLACKLIST_MESSAGE, ADDITIONAL_MESSAGE } from '@/lib/messages'
 
 import usersModels from '@/models/usersModel'
-import tokenModel from '@/models/tokenModel'
+import apiKeysModel from '@/models/apiKeysModel'
 import servicesModel from '@/models/servicesModel'
 import servicesAreasModel from '@/models/servicesAreasModel'
 import salesModel from '@/models/salesModel'
@@ -11,7 +11,7 @@ import blacklistModel from '@/models/blacklistModel'
 import additionalsModel from '@/models/additionalsModel'
 
 import type { UserOnlyUsername, GetUserProps } from '@/types/user'
-import type { TokenOnlyName } from '@/types/tokens'
+import type { ApiKeyOnlyName } from '@/types/apiKeys'
 import type { ServiceAreaOnlyName } from '@/types/servicesAreas'
 import type { SalesOnlyDocument, SalesOnlyId } from '@/types/sales'
 import type { PlanOnlyName } from '@/types/plans'
@@ -47,25 +47,25 @@ export const usersServices = {
   }
 }
 
-export const tokensServices = {
-  exists: async ({ name }: TokenOnlyName) => {
-    const tokens = await tokenModel.getTokenByName({ name })
+export const apiKeysServices = {
+  exists: async ({ name }: ApiKeyOnlyName) => {
+    const apiKeys = await apiKeysModel.getApiKeyByName({ name })
 
-    if (tokens.length === 0) {
-      throw new ResponseError({ status: 404, message: TOKEN_MESSAGE.NOT_FOUND(name) })
+    if (apiKeys.length === 0) {
+      throw new ResponseError({ status: 404, message: API_KEYS_MESSAGE.NOT_FOUND(name) })
     }
 
-    return tokens
+    return apiKeys
   },
 
-  alreadyExists: async ({ name }: TokenOnlyName) => {
-    const tokens = await tokenModel.getTokenByName({ name })
+  alreadyExists: async ({ name }: ApiKeyOnlyName) => {
+    const apiKeys = await apiKeysModel.getApiKeyByName({ name })
 
-    if (tokens.length >= 1) {
-      throw new ResponseError({ status: 409, message: TOKEN_MESSAGE.ALREADY_CREATED(name) })
+    if (apiKeys.length >= 1) {
+      throw new ResponseError({ status: 409, message: API_KEYS_MESSAGE.ALREADY_CREATED(name) })
     }
 
-    return tokens
+    return apiKeys
   }
 }
 
